@@ -120,6 +120,12 @@
                         <span>Static Content</span>
                     </li>
                 </a>
+                <a href="{{ route('roombook-list') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
+                        <span>Room Booking</span>
+                    </li>
+                </a>
                 <a href="{{ route('admin-list') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-user-tie mr-3 text-lg w-[22px]"></i>
@@ -202,6 +208,12 @@
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
                     <span>Static Content</span>
+                </li>
+            </a>
+            <a href="{{ route('roombook-list') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
+                    <span>Room Booking</span>
                 </li>
             </a>
             <a href="{{ route('admin-list') }}" class="text-md">
