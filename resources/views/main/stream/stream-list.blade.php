@@ -33,19 +33,23 @@
 <section class="mx-4 sm:mx-6 md:mx-8 lg:mx-12 py-12 px-6 bg-green-200 mt-8 rounded-3xl shadow-lg">
   <h2 class="text-5xl font-black text-center mb-8">Rekaman Minggu Ini</h2>
 
-  <div class="max-w-4xl mx-auto">
-    <!-- Featured Sermon -->
+  <div class="max-w-6xl mx-auto">
     @if($featured && $featured->youtube_id)
     <div class="mb-10">
-      <div class="bg-white rounded-lg shadow overflow-hidden">
-        <a href="{{ $featured->youtube_link }}" target="_blank" class="block relative aspect-video">
+      <div class="bg-white rounded-lg shadow overflow-hidden flex flex-col lg:flex-row">
+        
+        <!-- Left: Video Thumbnail -->
+        <a href="{{ $featured->youtube_link }}" target="_blank" 
+          class="relative aspect-video lg:aspect-auto lg:w-3/4">
           <img src="https://img.youtube.com/vi/{{ $featured->youtube_id }}/hqdefault.jpg"
-               alt="{{ $featured->title }}"
-               class="w-full h-full object-cover">
+              alt="{{ $featured->title }}"
+              class="w-full h-full object-cover">
         </a>
-        <div class="p-4">
-          <h3 class="text-xl font-semibold mb-1">{{ $featured->title }}</h3>
-          <p class="text-gray-600 text-sm">
+
+        <!-- Right: Text Content -->
+        <div class="p-6 flex flex-col justify-startt lg:w-1/4">
+          <h3 class="text-2xl font-semibold mb-3">{{ $featured->title }}</h3>
+          <p class="text-gray-600 text-lg">
             {{ \Carbon\Carbon::parse($featured->created_at)->format('d M Y') }}
           </p>
         </div>
