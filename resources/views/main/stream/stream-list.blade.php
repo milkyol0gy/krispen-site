@@ -37,17 +37,15 @@
     @if($featured && $featured->youtube_id)
     <div class="mb-10">
       <div class="bg-white rounded-lg shadow overflow-hidden flex flex-col lg:flex-row">
-        
-        <!-- Left: Video Thumbnail -->
-        <a href="{{ $featured->youtube_link }}" target="_blank" 
-          class="relative aspect-video lg:aspect-auto lg:w-3/4">
+        <a href="{{ $featured->youtube_link }}" target="_blank"
+          class="relative aspect-video lg:w-3/4 overflow-hidden">
           <img src="https://img.youtube.com/vi/{{ $featured->youtube_id }}/hqdefault.jpg"
               alt="{{ $featured->title }}"
               class="w-full h-full object-cover">
         </a>
 
-        <!-- Right: Text Content -->
-        <div class="p-6 flex flex-col justify-startt lg:w-1/4">
+
+        <div class="p-6 flex flex-col justify-start lg:w-1/4">
           <h3 class="text-2xl font-semibold mb-3">{{ $featured->title }}</h3>
           <p class="text-gray-600 text-lg">
             {{ \Carbon\Carbon::parse($featured->created_at)->format('d M Y') }}
