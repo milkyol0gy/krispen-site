@@ -3,6 +3,11 @@
 Masih belum ikut template admin.
 
 ---
+## 🛠️ How to Run
+- `php artisan migrate:fresh`
+- `php artisan db:seed`
+- `php artisan serve`
+
 ## 📝 Routes
 - `/sermons`
 - `/admin/sermons`
