@@ -9,14 +9,10 @@ class Material extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $table = 'spirit_materials';
+
     protected $fillable = [
         'title',
         'url',
-
     ];
 }
