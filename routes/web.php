@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SermonController;
 use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\StaticPageController;
-
 
 // Public facing route
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
@@ -34,19 +32,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.public');
-
-
-// berikut ini routes untuk static (instagram-post)
-// publik (untuk tampil di website)
-
-Route::get('/static', [StaticPageController::class, 'publicIndex'])->name('statics.public');
-
-// admin CRUD
-Route::prefix('admin')->group(function () {
-    Route::get('/statics', [StaticPageController::class, 'index'])->name('statics.index');
-    Route::get('/statics/create', [StaticPageController::class, 'create'])->name('statics.create');
-    Route::post('/statics/store', [StaticPageController::class, 'store'])->name('statics.store');
-    Route::get('/statics/edit/{static}', [StaticPageController::class, 'edit'])->name('statics.edit');
-    Route::put('/statics/update/{static}', [StaticPageController::class, 'update'])->name('statics.update');
-    Route::delete('/statics/destroy/{static}', [StaticPageController::class, 'destroy'])->name('statics.destroy');
-});
