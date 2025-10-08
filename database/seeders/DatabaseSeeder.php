@@ -13,8 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
- 
-        // Call SermonRecordsSeeder
         $this->call(SermonRecordSeeder::class);
+        $this->call(EventSeeder::class);
     }
 }
