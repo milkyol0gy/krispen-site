@@ -1,14 +1,32 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SermonController;
 use App\Http\Controllers\MaterialController;
 
 // Public facing route
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
+Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
+
+// Event Registration Routes
+use App\Http\Controllers\EventRegistController;
+Route::get('/events/{id}/register', [EventRegistController::class, 'create'])->name('events.register');
+Route::post('/events/{id}/register', [EventRegistController::class, 'store'])->name('events.register.store');
+Route::get('/events/{id}/register/success', [EventRegistController::class, 'success'])->name('events.register.success');
 
 // --- ADMIN ROUTES (Manual Definition) ---
 Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::prefix('events')->name('events.')->group(function () {
+        Route::get('/', [EventController::class, 'adminIndex'])->name('index');
+        Route::get('/create', [EventController::class, 'create'])->name('create');
+        Route::post('/store', [EventController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [EventController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [EventController::class, 'update'])->name('update');
+        Route::delete('/{id}/delete', [EventController::class, 'destroy'])->name('destroy');
+    });
 
     // Route names will now be materials.index, materials.create, etc. (NO 'admin.' prefix)
     Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
