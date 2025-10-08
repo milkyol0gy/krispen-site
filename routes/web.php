@@ -8,6 +8,7 @@ use App\Http\Controllers\MaterialController;
 // Public facing route
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
+Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 
 // --- ADMIN ROUTES (Manual Definition) ---
 Route::prefix('admin')->name('admin.')->group(function () {
