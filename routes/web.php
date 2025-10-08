@@ -13,6 +13,15 @@ Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show'
 // --- ADMIN ROUTES (Manual Definition) ---
 Route::prefix('admin')->name('admin.')->group(function () {
 
+    Route::prefix('events')->name('events.')->group(function () {
+        Route::get('/', [EventController::class, 'adminIndex'])->name('index');
+        Route::get('/create', [EventController::class, 'create'])->name('create');
+        Route::post('/store', [EventController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [EventController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [EventController::class, 'update'])->name('update');
+        Route::delete('/{id}/delete', [EventController::class, 'destroy'])->name('destroy');
+    });
+
     // Route names will now be materials.index, materials.create, etc. (NO 'admin.' prefix)
     Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
     Route::get('/materials/create', [MaterialController::class, 'create'])->name('materials.create');
