@@ -123,7 +123,7 @@
       </div>
     @endif
 
-    <form action="{{ route('statics.store') }}" method="POST">
+    <form action="{{ route('admin.statics.store') }}" method="POST">
       @csrf
 
       <div class="mb-3">
@@ -148,7 +148,7 @@
       </div>
 
       <div class="d-flex justify-content-between align-items-center">
-        <a href="{{ route('statics.index') }}" class="btn btn-outline-secondary btn-custom">Kembali</a>
+        <a href="{{ route('admin.statics.index') }}" class="btn btn-outline-secondary btn-custom">Kembali</a>
         <button type="submit" class="btn btn-primary btn-custom">Simpan</button>
       </div>
     </form>

@@ -33,7 +33,7 @@ class MaterialController extends Controller
         $request->validate([ 'title' => 'required|string|max:255', 'url' => 'required|url|max:2048', ]);
         Material::create($request->only('title', 'url'));
         // Redirects to the new route name
-        return redirect()->route('materials.index')->with('success', 'Material link created successfully.');
+        return redirect()->route('admin.materials.index')->with('success', 'Material link created successfully.');
     }
 
     public function edit(Material $material)
@@ -47,13 +47,13 @@ class MaterialController extends Controller
         $request->validate([ 'title' => 'required|string|max:255', 'url' => 'required|url|max:2048', ]);
         $material->update($request->only('title', 'url'));
         // Redirects to the new route name
-        return redirect()->route('materials.index')->with('success', 'Material link updated successfully.');
+        return redirect()->route('admin.materials.index')->with('success', 'Material link updated successfully.');
     }
 
     public function destroy(Material $material)
     {
         $material->delete();
         // Redirects to the new route name
-        return redirect()->route('materials.index')->with('success', 'Material link deleted successfully.');
+        return redirect()->route('admin.materials.index')->with('success', 'Material link deleted successfully.');
     }
 }

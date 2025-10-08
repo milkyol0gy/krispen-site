@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{ route('materials.insert') }}" method="POST">
+    <form action="{{ route('admin.materials.insert') }}" method="POST">
     @csrf
         <div class="mb-4">
             <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>
@@ -27,7 +27,7 @@
         </div>
         <div class="flex items-center justify-between">
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Link</button>
-             <a href="{{ route('materials.index') }}">Cancel</a>
+             <a href="{{ route('admin.materials.index') }}">Cancel</a>
         </div>
     </form>
 </div>

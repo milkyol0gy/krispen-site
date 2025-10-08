@@ -8,7 +8,7 @@
 <div class="container mx-auto mt-10 p-5">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-700">Manage PDF Links</h1>
-        <a href="{{ route('materials.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <a href="{{ route('admin.materials.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             + Add New Link
         </a>
     </div>
@@ -26,8 +26,8 @@
                 <td class="border border-slate-300 px-5 py-5">{{ $material->title }}</td>
                 <td class="border border-slate-300 px-5 py-5">
                     <div class="flex justify-end space-x-2">
-                        <a href="{{ route('materials.edit', $material) }}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Edit</a>
-                        <form action="{{ route('materials.destroy', $material) }}" method="POST">
+                        <a href="{{ route('admin.materials.edit', $material) }}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                        <form action="{{ route('admin.materials.destroy', $material) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>

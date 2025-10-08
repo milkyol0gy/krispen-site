@@ -103,7 +103,7 @@
   <div class="card-form">
     <h2>Edit Embed Instagram</h2>
 
-    <form action="{{ route('statics.update', $static->id) }}" method="POST">
+    <form action="{{ route('admin.statics.update', $static->id) }}" method="POST">
       @csrf
       @method('PUT')
 
@@ -118,7 +118,7 @@
       </div>
 
       <div class="d-flex justify-content-between">
-        <a href="{{ route('statics.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.statics.index') }}" class="btn btn-secondary">Kembali</a>
         <button type="submit" class="btn btn-primary">Update</button>
       </div>
     </form>

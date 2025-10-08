@@ -177,7 +177,7 @@
           <input id="search-input" type="search" placeholder="Cari judul atau ID..." autocomplete="off" />
         </div>
 
-        <a href="{{ route('statics.create') }}" class="btn btn-primary-modern" aria-label="Tambah post">+ Tambah Post</a>
+        <a href="{{ route('admin.statics.create') }}" class="btn btn-primary-modern" aria-label="Tambah post">+ Tambah Post</a>
 
         <button id="theme-toggle" class="btn-ghost" aria-pressed="false" title="Ganti tema">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -212,11 +212,11 @@
               </div>
 
               <div class="actions" role="group" aria-label="Aksi post">
-                <a href="{{ route('statics.edit', $static->id) }}" class="btn-ghost" title="Edit">Edit</a>
+                <a href="{{ route('admin.statics.edit', $static->id) }}" class="btn-ghost" title="Edit">Edit</a>
 
                 <button class="btn-ghost" data-copy-target="embed-wrap-{{ $static->id }}" title="Copy embed">Copy</button>
 
-                <form id="delete-form-{{ $static->id }}" action="{{ route('statics.destroy', $static->id) }}" method="POST" class="d-inline">
+                <form id="delete-form-{{ $static->id }}" action="{{ route('admin.statics.destroy', $static->id) }}" method="POST" class="d-inline">
                   @csrf
                   @method('DELETE')
                   <button type="button" class="btn-ghost text-danger btn-delete" data-form-id="delete-form-{{ $static->id }}">Hapus</button>

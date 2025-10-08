@@ -26,7 +26,7 @@ class StaticPageController extends Controller
     {
         $count = StaticPage::count();
         if ($count >= 3) {
-            return redirect()->route('statics.index')->with('error', 'Maksimal hanya 3 post.');
+            return redirect()->route('admin.statics.index')->with('error', 'Maksimal hanya 3 post.');
         }
         return view('static.crud.create');
     }
@@ -39,11 +39,11 @@ class StaticPageController extends Controller
         ]);
 
         if (StaticPage::count() >= 3) {
-            return redirect()->route('statics.index')->with('error', 'Maksimal hanya 3 post.');
+            return redirect()->route('admin.statics.index')->with('error', 'Maksimal hanya 3 post.');
         }
 
         StaticPage::create($request->only(['title', 'embed_code']));
-        return redirect()->route('statics.index')->with('success', 'Post berhasil ditambahkan.');
+        return redirect()->route('admin.statics.index')->with('success', 'Post berhasil ditambahkan.');
     }
 
     public function edit(StaticPage $static)
@@ -59,12 +59,12 @@ class StaticPageController extends Controller
         ]);
 
         $static->update($request->only(['title', 'embed_code']));
-        return redirect()->route('statics.index')->with('success', 'Post berhasil diperbarui.');
+        return redirect()->route('admin.statics.index')->with('success', 'Post berhasil diperbarui.');
     }
 
     public function destroy(StaticPage $static)
     {
         $static->delete();
-        return redirect()->route('statics.index')->with('success', 'Post berhasil dihapus.');
+        return redirect()->route('admin.statics.index')->with('success', 'Post berhasil dihapus.');
     }
 }
