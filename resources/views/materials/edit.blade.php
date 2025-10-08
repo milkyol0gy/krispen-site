@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{ route('materials.update', $material) }}" method="POST">
+    <form action="{{ route('admin.materials.update', $material) }}" method="POST">
     @csrf
         @method('PUT')
         <div class="mb-4">
@@ -28,7 +28,7 @@
         </div>
         <div class="flex items-center justify-between">
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update Link</button>
-            <a href="{{ route('materials.index') }}">Cancel</a>
+            <a href="{{ route('admin.materials.index') }}">Cancel</a>
         </div>
     </form>
 </div>
