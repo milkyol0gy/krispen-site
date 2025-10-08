@@ -10,12 +10,6 @@ Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('m
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 
-// Event Registration Routes
-use App\Http\Controllers\EventRegistController;
-Route::get('/events/{id}/register', [EventRegistController::class, 'create'])->name('events.register');
-Route::post('/events/{id}/register', [EventRegistController::class, 'store'])->name('events.register.store');
-Route::get('/events/{id}/register/success', [EventRegistController::class, 'success'])->name('events.register.success');
-
 // --- ADMIN ROUTES (Manual Definition) ---
 Route::prefix('admin')->name('admin.')->group(function () {
 
