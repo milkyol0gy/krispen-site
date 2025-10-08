@@ -16,5 +16,8 @@ class DatabaseSeeder extends Seeder
  
         // Call SermonRecordsSeeder
         $this->call(SermonRecordSeeder::class);
+        
+        // Call EventSeeder
+        $this->call(EventSeeder::class);
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SermonController;
 use App\Http\Controllers\MaterialController;
 
 // Public facing route
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
 
 // --- ADMIN ROUTES (Manual Definition) ---
 Route::prefix('admin')->name('admin.')->group(function () {
