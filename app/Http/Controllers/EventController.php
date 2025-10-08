@@ -12,4 +12,10 @@ class EventController extends Controller
         $events = Event::orderBy('start_time', 'asc')->get();
         return view('events.index', compact('events'));
     }
+
+    public function show($id)
+    {
+        $event = Event::findOrFail($id);
+        return view('events.show', compact('event'));
+    }
 }
