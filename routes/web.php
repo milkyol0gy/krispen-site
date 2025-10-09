@@ -4,17 +4,14 @@ use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SermonController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\StaticPageController;
 
 // Public facing route
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
-
-// Event Registration Routes
-use App\Http\Controllers\EventRegistController;
-Route::get('/events/{id}/register', [EventRegistController::class, 'create'])->name('events.register');
-Route::post('/events/{id}/register', [EventRegistController::class, 'store'])->name('events.register.store');
-Route::get('/events/{id}/register/success', [EventRegistController::class, 'success'])->name('events.register.success');
+Route::get('/static', [StaticPageController::class, 'publicIndex'])->name('statics.public');
+Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.public');
 
 // --- ADMIN ROUTES (Manual Definition) ---
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -29,14 +26,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     // Route names will now be materials.index, materials.create, etc. (NO 'admin.' prefix)
-    Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
-    Route::get('/materials/create', [MaterialController::class, 'create'])->name('materials.create');
-    Route::post('/materials/insert', [MaterialController::class, 'store'])->name('materials.insert');
-    Route::get('/materials/edit/{material}', [MaterialController::class, 'edit'])->name('materials.edit');
-    Route::put('/materials/update/{material}', [MaterialController::class, 'update'])->name('materials.update');
-    Route::delete('/materials/destroy/{material}', [MaterialController::class, 'destroy'])->name('materials.destroy');
-
-
+    Route::prefix('materials')->name('materials.')->group(function () {
+        Route::get('/', [MaterialController::class, 'index'])->name('index');
+        Route::get('/create', [MaterialController::class, 'create'])->name('create');
+        Route::post('/insert', [MaterialController::class, 'store'])->name('insert');
+        Route::get('/edit/{material}', [MaterialController::class, 'edit'])->name('edit');
+        Route::put('/update/{material}', [MaterialController::class, 'update'])->name('update');
+        Route::delete('/destroy/{material}', [MaterialController::class, 'destroy'])->name('destroy');
+    });
 
     // STREAMING ADMIN
     Route::prefix('sermons')->name('sermons.')->group(function () {
@@ -47,6 +44,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/{id}/update', [SermonController::class, 'update'])->name('update');
         Route::delete('/{id}/delete', [SermonController::class, 'destroy'])->name('destroy');
     });
-});
 
-Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.public');
+    Route::prefix('statics')->name('statics.')->group(function () {
+        Route::get('/', [StaticPageController::class, 'index'])->name('index');
+        Route::get('/create', [StaticPageController::class, 'create'])->name('create');
+        Route::post('/store', [StaticPageController::class, 'store'])->name('store');
+        Route::get('/edit/{static}', [StaticPageController::class, 'edit'])->name('edit');
+        Route::put('/update/{static}', [StaticPageController::class, 'update'])->name('update');
+        Route::delete('/destroy/{static}', [StaticPageController::class, 'destroy'])->name('destroy');
+    });
+});
