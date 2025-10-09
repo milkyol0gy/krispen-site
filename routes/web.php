@@ -22,10 +22,12 @@ Route::get('/events/{id}/register/success', [EventRegistController::class, 'succ
 Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // --- ADMIN ROUTES (Manual Definition) ---
 Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function () {
+    
+    // Logout route
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::prefix('events')->name('events.')->group(function () {
         Route::get('/', [EventController::class, 'adminIndex'])->name('index');

@@ -146,7 +146,7 @@
 
         {{-- Logout --}}
         <div class="mt-auto mb-6 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
-            <form action="" method="POST">
+            <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf
                 <button class="text-md" type="submit">
                     <div class="flex flex-row items-center rounded-lg transition">
@@ -249,7 +249,7 @@
 
         {{-- Logout --}}
         <div class="mt-0 m-3 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
-            <form action="" method="POST">
+            <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="text-md">
                     <div class="flex flex-row items-center rounded-lg transition">
