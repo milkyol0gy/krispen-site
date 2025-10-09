@@ -9,7 +9,7 @@ class Material extends Model
 {
     use HasFactory;
 
-    protected $table = 'spirit_materials';
+    protected $table = 'materials';
 
     protected $fillable = [
         'title',
