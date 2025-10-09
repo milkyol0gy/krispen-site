@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SermonController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\StaticPageController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventRegistController;
 
 // Public facing route
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
@@ -13,8 +15,17 @@ Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show'
 Route::get('/static', [StaticPageController::class, 'publicIndex'])->name('statics.public');
 Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.public');
 
+Route::get('/events/{id}/register', [EventRegistController::class, 'create'])->name('events.register');
+Route::post('/events/{id}/register', [EventRegistController::class, 'store'])->name('events.register.store');
+Route::get('/events/{id}/register/success', [EventRegistController::class, 'success'])->name('events.register.success');
+
+Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
+Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 // --- ADMIN ROUTES (Manual Definition) ---
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function () {
 
     Route::prefix('events')->name('events.')->group(function () {
         Route::get('/', [EventController::class, 'adminIndex'])->name('index');
