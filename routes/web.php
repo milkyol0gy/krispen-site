@@ -20,6 +20,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [EventController::class, 'adminIndex'])->name('index');
         Route::get('/create', [EventController::class, 'create'])->name('create');
         Route::post('/store', [EventController::class, 'store'])->name('store');
+        Route::get('/{id}/show', [EventController::class, 'adminShow'])->name('show');
         Route::get('/{id}/edit', [EventController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [EventController::class, 'update'])->name('update');
         Route::delete('/{id}/delete', [EventController::class, 'destroy'])->name('destroy');
