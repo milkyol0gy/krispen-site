@@ -76,7 +76,7 @@
             <img src="{{ asset('assets/icons/profile.png') }}" alt="profile_icon"
                 class="h-[15px] object-contain my-auto mr-4">
             <div class="flex flex-col my-auto mr-4">
-                <p>{{ auth()->user()->name }}</p>
+                <p>{{ auth()->user()->name ?? 'Guest' }}</p>
             </div>
         </div>
     </div>
@@ -84,49 +84,49 @@
         {{-- Navlist --}}
         <div class="mt-[85px]">
             <ul>
-                <a href="{{ route('event-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-regular fa-calendar-days mr-3 text-lg w-[22px]"></i>
                         <span>Event</span>
                     </li>
                 </a>
-                <a href="{{ route('pray-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-hands-praying mr-3 text-lg w-[22px]"></i>
                         <span>Prayer List</span>
                     </li>
                 </a>
-                <a href="{{ route('stream-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-photo-film mr-3 text-lg w-[22px]"></i>
                         <span>Streaming</span>
                     </li>
                 </a>
-                <a href="{{ route('announce-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-bullhorn mr-3 text-lg w-[22px]"></i>
                         <span>Announcement</span>
                     </li>
                 </a>
-                <a href="{{ route('material-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-book mr-3 text-lg w-[22px]"></i>
                         <span>Material PDF</span>
                     </li>
                 </a>
-                <a href="{{ route('static-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
                         <span>Static Content</span>
                     </li>
                 </a>
-                <a href="{{ route('roombook-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
                         <span>Room Booking</span>
                     </li>
                 </a>
-                <a href="{{ route('admin-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-user-tie mr-3 text-lg w-[22px]"></i>
                         <span>Admin List</span>
@@ -138,7 +138,7 @@
 
         {{-- Logout --}}
         <div class="mt-auto mb-6 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
-            <form action="{{ route('logout-admin') }}" method="POST">
+            <form action="" method="POST">
                 @csrf
                 <button class="text-md" type="submit">
                     <div class="flex flex-row items-center rounded-lg transition">
@@ -174,49 +174,49 @@
 <div id="smallNav" class="bg-white border-b-2 absolute w-full z-[99] lg:hidden">
     <ul class="ml-0">
         <ul class="m-3">
-                <a href="{{ route('event-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-regular fa-file-lines mr-3 text-lg w-[22px]"></i>
                         <span>Event</span>
                     </li>
                 </a>
-                <a href="{{ route('pray-list') }}" class="text-md">
+                <a href="" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-hands-praying mr-3 text-lg w-[22px]"></i>
                         <span>Pray List</span>
                     </li>
                 </a>
-            <a href="{{ route('stream-list') }}" class="text-md">
+            <a href="" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-photo-film mr-3 text-lg w-[22px]"></i>
                     <span>Streaming</span>
                 </li>
             </a>
-            <a href="{{ route('announce-list') }}" class="text-md">
+            <a href="" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-bullhorn mr-3 text-lg w-[22px]"></i>
                     <span>Announcement</span>
                 </li>
             </a>
-            <a href="{{ route('material-list') }}" class="text-md">
+            <a href="" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-book mr-3 text-lg w-[22px]"></i>
                     <span>Material PDF</span>
                 </li>
             </a>
-            <a href="{{ route('static-list') }}" class="text-md">
+            <a href="" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
                     <span>Static Content</span>
                 </li>
             </a>
-            <a href="{{ route('roombook-list') }}" class="text-md">
+            <a href="" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
                     <span>Room Booking</span>
                 </li>
             </a>
-            <a href="{{ route('admin-list') }}" class="text-md">
+            <a href="" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-user-tie mr-3 text-lg w-[22px]"></i>
                     <span>Admin List</span>
@@ -230,13 +230,13 @@
             <img src="{{ asset('assets/icons/profile.png') }}" alt="profile_icon"
                 class="h-[15px] object-contain my-auto mr-4">
             <div class="flex flex-col my-auto mr-4">
-                <p>{{ auth()->user()->name }}</p>
+                <p>{{ auth()->user()->name ?? 'guest'}}</p>
             </div>
         </div>
 
         {{-- Logout --}}
         <div class="mt-0 m-3 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
-            <form action="{{ route('logout-admin') }}" method="POST">
+            <form action="" method="POST">
                 @csrf
                 <button type="submit" class="text-md">
                     <div class="flex flex-row items-center rounded-lg transition">

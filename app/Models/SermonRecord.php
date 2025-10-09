@@ -10,5 +10,6 @@ class SermonRecord extends Model
     protected $fillable = [
         'title',
         'youtube_link',
+        'description',
     ];
 }
