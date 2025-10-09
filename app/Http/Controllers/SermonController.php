@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\SermonRecord;
-
+use Carbon\Carbon;
 class SermonController extends Controller
 {
     public function index()
@@ -29,23 +29,49 @@ class SermonController extends Controller
         return view('main.stream.stream-list', compact('featured', 'others'));
     }
 
+    public function adminIndex(Request $request)
+   {
+        $search = $request->input('search');
 
-    public function adminIndex()
-    {
-    $sermons = \DB::table('sermon_records')
-        ->orderBy('created_at','desc')
-        ->get()
-        ->map(function($s){
+        // base query for display
+        $query = DB::table('sermon_records');
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                ->orWhere('youtube_link', 'like', "%{$search}%");
+            });
+        }
+
+        $sermons = $query->orderBy('created_at', 'desc')
+                        ->paginate(10)
+                        ->appends(['search' => $search]);
+
+        // transform each sermon (for current table)
+        $sermons->getCollection()->transform(function ($s) {
             parse_str(parse_url($s->youtube_link, PHP_URL_QUERY) ?? '', $q);
             $s->youtube_id = $q['v'] ?? null;
             $s->date = \Carbon\Carbon::parse($s->created_at)->format('d M Y');
             return $s;
         });
 
-    return view('admin.stream.stream-list', [
-        'sermons' => $sermons,
-        'sermonsJson' => $sermons->toJson()
-    ]);
+        // fetch latest 10 sermons (unfiltered) for preview
+        $recent = DB::table('sermon_records')
+                    ->orderBy('created_at', 'desc')
+                    ->limit(11)
+                    ->get()
+                    ->map(function ($s) {
+                        parse_str(parse_url($s->youtube_link, PHP_URL_QUERY) ?? '', $q);
+                        $s->youtube_id = $q['v'] ?? null;
+                        $s->date = \Carbon\Carbon::parse($s->created_at)->format('d M Y');
+                        return $s;
+                    });
+
+        return view('admin.stream.stream-list', [
+            'sermons' => $sermons,
+            'sermonsJson' => $sermons->getCollection()->values()->toJson(),
+            'recentJson' => $recent->toJson(),
+        ]);
     }
 
     public function create()
@@ -55,17 +81,13 @@ class SermonController extends Controller
 
     public function store(Request $request)
     {
-        // Validate input
-        $request->validate([
-            'title'         => 'required|string|max:255',
-            'youtube_link'  => 'required|url'
+        $validated = $request->validate([
+            'title'        => 'required|string|max:255',
+            'youtube_link' => 'required|url',
+            'description'  => 'required|string|max:2000',
         ]);
 
-        // Create new streaming record
-        SermonRecord::create([
-            'title'        => $request->title,
-            'youtube_link' => $request->youtube_link
-        ]);
+        SermonRecord::create($validated);
 
         return redirect()
             ->route('admin.sermons.index')
@@ -78,7 +100,6 @@ class SermonController extends Controller
     public function edit($id)
     {
         $streaming = SermonRecord::findOrFail($id);
-
         return view('admin.sermons.edit', compact('streaming'));
     }
 
@@ -87,17 +108,15 @@ class SermonController extends Controller
          */
     public function update(Request $request, $id)
     {
-        // Validate input
-        $request->validate([
-            'title'         => 'required|string|max:255',
-            'youtube_link'  => 'required|url'
+        $validated = $request->validate([
+            'title'        => 'required|string|max:255',
+            'youtube_link' => 'required|url',
+            'description'  => 'required|string|max:2000',
         ]);
 
         $streaming = SermonRecord::findOrFail($id);
-        $streaming->update([
-            'title'        => $request->title,
-            'youtube_link' => $request->youtube_link
-        ]);
+        $streaming->update($validated);
+
         return redirect()
             ->route('admin.sermons.index')
             ->with('success', 'Streaming has been updated successfully.');
