@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Event</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
+@extends('base.base-admin')
+
+@section('content')
 
 <div class="max-w-4xl mx-auto px-4 py-10">
 
@@ -85,8 +79,5 @@
             </div>
         </form>
     </div>
-
 </div>
-
-</body>
-</html>
+@endsection
