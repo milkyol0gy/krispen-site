@@ -20,6 +20,7 @@ class Event extends Model
         'end_time' => 'datetime',
     ];
 
+    // Accessor untuk format tanggal
     public function getFormattedDateAttribute()
     {
         if ($this->end_time && $this->start_time->format('Y-m-d') !== $this->end_time->format('Y-m-d')) {

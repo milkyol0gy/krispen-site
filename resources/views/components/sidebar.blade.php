@@ -99,7 +99,7 @@
                     </li>
                 </a>
                 
-                <a href="https://youtube.com" class="text-md">
+                <a href="{{ route('admin.sermons.index') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-photo-film mr-3 text-lg w-[22px]"></i>
                         <span>Streaming</span>
