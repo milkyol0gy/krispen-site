@@ -19,11 +19,59 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         return view('events.show', compact('event'));
     }
-
-    public function adminIndex()
+    
+    public function show_room_booking()
     {
-        $events = Event::orderBy('start_time', 'desc')->get();
+        return view('admin.room-booking');
+    }
+
+    public function show_prayer_list()
+    {
+        return view('admin.prayer-list');
+    }
+
+     public function show_admin_list()
+    {
+        return view('admin.admin-list');
+    }
+
+    public function adminIndex(Request $request)
+    {
+        $query = Event::query();
+
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $events = $query->orderBy('start_time', 'desc')->paginate(10);
+        
         return view('admin.events.index', compact('events'));
+    }
+
+    public function adminShow(Request $request, $id)
+    {
+        $event = Event::findOrFail($id);
+        
+        $search = $request->get('search');
+        
+        $registrationsQuery = $event->eventRegists();
+        
+        if ($search) {
+            $registrationsQuery->where(function($query) use ($search) {
+                $query->where('attandee_name', 'like', '%' . $search . '%')
+                      ->orWhere('inviter_name', 'like', '%' . $search . '%')
+                      ->orWhere('attandee_phone', 'like', '%' . $search . '%');
+            });
+        }
+        
+        $registrations = $registrationsQuery->orderBy('created_at', 'desc')->paginate(10);
+        $registrations->appends(['search' => $search]);
+        
+        return view('admin.events.show', compact('event', 'registrations', 'search'));
     }
 
     public function create()

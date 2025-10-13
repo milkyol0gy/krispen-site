@@ -14,13 +14,22 @@ class MaterialSeeder extends Seeder
     public function run(): void
     {
         Material::create([
-            'title' => 'pdf1',
-            'url' => 'https://www.w3schools.com/html/html_responsive.asp',
+                'title' => 'pdf 1',
+                'url' => 'https://laravel.com/docs/10.x',
+                'description' => 'laravel',
+                'published_date' => Carbon::parse('2023-02-14'),
+                'created_at' => now(),
+                'updated_at' => now(),
+
         ]);
 
         Material::create([
-            'title' => 'pdf2',
-            'url' => 'https://www.w3schools.com/html/html_responsive.asp',
+                'title' => 'pdf 2',
+                'url' => 'https://laracasts.com/series/laravel-8-from-scratch',
+                'description' => 'test',
+                'published_date' => Carbon::parse('2022-11-08'),
+                'created_at' => now(),
+                'updated_at' => now(),
         ]);
     }
 }

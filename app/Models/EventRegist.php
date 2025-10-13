@@ -13,7 +13,6 @@ class EventRegist extends Model
         'attandee_phone',
     ];
 
-    // Relationship dengan Event
     public function event()
     {
         return $this->belongsTo(Event::class);

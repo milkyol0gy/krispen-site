@@ -9,10 +9,17 @@ class Material extends Model
 {
     use HasFactory;
 
-    protected $table = 'spirit_materials';
+    protected $table = 'materials';
 
     protected $fillable = [
         'title',
         'url',
+        'description',
+        'published_date',
+    ];
+
+
+    protected $casts = [
+        'published_date' => 'date',
     ];
 }
