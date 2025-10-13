@@ -37,10 +37,26 @@ class EventController extends Controller
         return view('admin.events.index', compact('events'));
     }
 
-    public function adminShow($id)
+    public function adminShow(Request $request, $id)
     {
         $event = Event::findOrFail($id);
-        return view('admin.events.show', compact('event'));
+        
+        $search = $request->get('search');
+        
+        $registrationsQuery = $event->eventRegists();
+        
+        if ($search) {
+            $registrationsQuery->where(function($query) use ($search) {
+                $query->where('attandee_name', 'like', '%' . $search . '%')
+                      ->orWhere('inviter_name', 'like', '%' . $search . '%')
+                      ->orWhere('attandee_phone', 'like', '%' . $search . '%');
+            });
+        }
+        
+        $registrations = $registrationsQuery->orderBy('created_at', 'desc')->paginate(10);
+        $registrations->appends(['search' => $search]);
+        
+        return view('admin.events.show', compact('event', 'registrations', 'search'));
     }
 
     public function create()
