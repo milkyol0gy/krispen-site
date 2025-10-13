@@ -11,7 +11,7 @@ class SermonController extends Controller
 {
     public function index()
     {
-        $sermons = \DB::table('sermon_records')
+        $sermons = DB::table('sermon_records')
             ->orderBy('created_at', 'desc')
             ->limit(10)
             ->get()
