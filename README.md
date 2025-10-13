@@ -1,6 +1,8 @@
 # 📖 Sermon Records & Streaming Management
 
-Masih belum ikut template admin.
+Sudah Mengikuti Template Admin + Usulan kak alwyn dan kak devi
+
+# resources\views\components\sidebar.blade.php Diubah agar bisa di panggil tanpa login
 
 ---
 ## 🛠️ How to Run

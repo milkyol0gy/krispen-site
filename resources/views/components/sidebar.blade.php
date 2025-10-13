@@ -70,7 +70,7 @@
 <aside class="w-64 h-screen border-e-2 fixed hidden lg:block">
     <div class="h-[70px] w-full flex items-center p-3 border-b-2 border-blue-300 bg-white">
         <a href="#" class="ml-12">
-            <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-[110px] object-cover mt-2">
+            <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-[80px] object-cover mt-2">
         </a>
         
         {{-- MODIFIED: Show profile info only if logged in --}}
@@ -94,13 +94,15 @@
                         <span>Event</span>
                     </li>
                 </a>
-                <a href="#" class="text-md">
+                
+                <a href="{{ route('admin.events.prayer-list') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-hands-praying mr-3 text-lg w-[22px]"></i>
                         <span>Prayer List</span>
                     </li>
                 </a>
-                <a href="#" class="text-md">
+                
+                <a href="{{ route('admin.sermons.index') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-photo-film mr-3 text-lg w-[22px]"></i>
                         <span>Streaming</span>
@@ -124,13 +126,15 @@
                         <span>Static Content</span>
                     </li>
                 </a>
-                <a href="#" class="text-md">
+                
+                <a href="{{ route('admin.events.room-booking') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
                         <span>Room Booking</span>
                     </li>
                 </a>
-                <a href="#" class="text-md">
+                
+                <a href="{{ route('admin.events.admin-list') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-user-tie mr-3 text-lg w-[22px]"></i>
                         <span>Admin List</span>
@@ -200,7 +204,7 @@
                     <span>Event</span>
                 </li>
             </a>
-            <a href="#" class="text-md">
+            <a href="{{ route('admin.events.prayer-list') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-hands-praying mr-3 text-lg w-[22px]"></i>
                     <span>Pray List</span>
@@ -230,13 +234,15 @@
                     <span>Static Content</span>
                 </li>
             </a>
-            <a href="#" class="text-md">
+            
+            <a href="{{ route('admin.events.room-booking') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
                     <span>Room Booking</span>
                 </li>
             </a>
-            <a href="#" class="text-md">
+            
+            <a href="{{ route('admin.events.admin-list') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-user-tie mr-3 text-lg w-[22px]"></i>
                     <span>Admin List</span>
