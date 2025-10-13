@@ -19,12 +19,16 @@ class StaticPageController extends Controller
     {
         $statics = StaticPage::latest()->get();
         $count = StaticPage::count();
-        return view('admin.static.list', compact('statics', 'count'));
+        return view('static.static-admin', compact('statics', 'count'));
     }
 
     public function create()
     {
-        return view('admin.static.create');
+        $count = StaticPage::count();
+        if ($count >= 3) {
+            return redirect()->route('admin.statics.index')->with('error', 'Maksimal hanya 3 post.');
+        }
+        return view('static.crud.create');
     }
 
     public function store(Request $request)
@@ -44,7 +48,7 @@ class StaticPageController extends Controller
 
     public function edit(StaticPage $static)
     {
-        return view('admin.static.edit', compact('static'));
+        return view('static.crud.edit', compact('static'));
     }
 
     public function update(Request $request, StaticPage $static)
