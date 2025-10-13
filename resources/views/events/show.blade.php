@@ -86,7 +86,7 @@
                 </div>
 
                 <h2 class="text-2xl font-bold text-black mb-5">JOIN!!</h2>
-                <a href="#"
+                <a href="{{ route('events.register', $event->id) }}"
                     class="inline-block bg-[#132B1D] text-white font-semibold px-8 py-3 rounded-md hover:bg-gray-800 transition-colors duration-300 shadow-md">
                     DAFTAR
                 </a>
