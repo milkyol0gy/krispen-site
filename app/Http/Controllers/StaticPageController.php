@@ -19,16 +19,12 @@ class StaticPageController extends Controller
     {
         $statics = StaticPage::latest()->get();
         $count = StaticPage::count();
-        return view('static.static-admin', compact('statics', 'count'));
+        return view('admin.static.list', compact('statics', 'count'));
     }
 
     public function create()
     {
-        $count = StaticPage::count();
-        if ($count >= 3) {
-            return redirect()->route('statics.index')->with('error', 'Maksimal hanya 3 post.');
-        }
-        return view('static.crud.create');
+        return view('admin.static.create');
     }
 
     public function store(Request $request)
@@ -39,16 +35,16 @@ class StaticPageController extends Controller
         ]);
 
         if (StaticPage::count() >= 3) {
-            return redirect()->route('statics.index')->with('error', 'Maksimal hanya 3 post.');
+            return redirect()->route('admin.statics.index')->with('error', 'Maksimal hanya 3 post.');
         }
 
         StaticPage::create($request->only(['title', 'embed_code']));
-        return redirect()->route('statics.index')->with('success', 'Post berhasil ditambahkan.');
+        return redirect()->route('admin.statics.index')->with('success', 'Post berhasil ditambahkan.');
     }
 
     public function edit(StaticPage $static)
     {
-        return view('static.crud.edit', compact('static'));
+        return view('admin.static.edit', compact('static'));
     }
 
     public function update(Request $request, StaticPage $static)
@@ -59,12 +55,12 @@ class StaticPageController extends Controller
         ]);
 
         $static->update($request->only(['title', 'embed_code']));
-        return redirect()->route('statics.index')->with('success', 'Post berhasil diperbarui.');
+        return redirect()->route('admin.statics.index')->with('success', 'Post berhasil diperbarui.');
     }
 
     public function destroy(StaticPage $static)
     {
         $static->delete();
-        return redirect()->route('statics.index')->with('success', 'Post berhasil dihapus.');
+        return redirect()->route('admin.statics.index')->with('success', 'Post berhasil dihapus.');
     }
 }
