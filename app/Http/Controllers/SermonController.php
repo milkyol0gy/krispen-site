@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\SermonRecord;
 use Carbon\Carbon;
+
 class SermonController extends Controller
 {
     public function index()

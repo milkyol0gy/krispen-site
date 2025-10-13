@@ -37,6 +37,9 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
         Route::get('/{id}/edit', [EventController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [EventController::class, 'update'])->name('update');
         Route::delete('/{id}/delete', [EventController::class, 'destroy'])->name('destroy');
+        Route::get('/room-booking', [EventController::class, 'show_room_booking'])->name('room-booking');
+        Route::get('/prayer-list', [EventController::class, 'show_prayer_list'])->name('prayer-list');
+        Route::get('/admin-list', [EventController::class, 'show_admin_list'])->name('admin-list');
     });
 
     // Route names will now be materials.index, materials.create, etc. (NO 'admin.' prefix)
@@ -67,4 +70,12 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
         Route::put('/update/{static}', [StaticPageController::class, 'update'])->name('update');
         Route::delete('/destroy/{static}', [StaticPageController::class, 'destroy'])->name('destroy');
     });
+
+    // Route::prefix('admin_list')->name('admin_list.')->group(function () {    
+    //     Route::get('/', [AuthController::class, 'show_admin_list'])->name('index');
+    // });
+});
+
+Route::get('/test-route', function () {
+    return 'Route berhasil diakses!';
 });
