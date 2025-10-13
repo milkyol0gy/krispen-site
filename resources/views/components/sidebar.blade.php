@@ -68,24 +68,27 @@
 
 {{-- Sidebar --}}
 <aside class="w-64 h-screen border-e-2 fixed hidden lg:block">
-    <div class="h-[70px] w-screen flex items-center p-3 border-b-2 border-blue-300 bg-white">
+    <div class="h-[70px] w-full flex items-center p-3 border-b-2 border-blue-300 bg-white">
         <a href="#" class="ml-12">
             <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-[80px] object-cover mt-2">
         </a>
-        <div class="ml-auto flex align-center justify-center">
-            <img src="{{ asset('assets/icons/profile.png') }}" alt="profile_icon"
-                class="h-[15px] object-contain my-auto mr-4">
-            <div class="flex flex-col my-auto mr-4">
-                <p>Valen</p>
-                {{-- <p>{{ auth()->user()->name }}</p> --}}
+        
+        {{-- MODIFIED: Show profile info only if logged in --}}
+        @auth
+            <div class="ml-auto flex align-center justify-center">
+                <img src="{{ asset('assets/icons/profile.png') }}" alt="profile_icon"
+                    class="h-[15px] object-contain my-auto mr-4">
+                <div class="flex flex-col my-auto mr-4">
+                    <p>{{ auth()->user()->name }}</p>
+                </div>
             </div>
-        </div>
+        @endauth
     </div>
     <div class="mx-6 h-screen mt-[-70px] flex flex-col mb-5">
         {{-- Navlist --}}
         <div class="mt-[85px]">
             <ul>
-                <a href="{{ route('admin.events.index') }}" class="text-md">
+                <a href="#" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-regular fa-calendar-days mr-3 text-lg w-[22px]"></i>
                         <span>Event</span>
@@ -105,22 +108,19 @@
                         <span>Streaming</span>
                     </li>
                 </a>
-                
-                <a href="https://youtube.com" class="text-md">
+                <a href="#" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-bullhorn mr-3 text-lg w-[22px]"></i>
                         <span>Announcement</span>
                     </li>
                 </a>
-                
-                <a href="https://youtube.com" class="text-md">
+                <a href="{{ route('admin.materials.index') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-book mr-3 text-lg w-[22px]"></i>
                         <span>Material PDF</span>
                     </li>
                 </a>
-                
-                <a href="https://youtube.com" class="text-md">
+                <a href="#" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
                         <span>Static Content</span>
@@ -144,18 +144,34 @@
             </ul>
         </div>
 
-        {{-- Logout --}}
-        <div class="mt-auto mb-6 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
-            <form action="{{ route('admin.logout') }}" method="POST">
-                @csrf
-                <button class="text-md" type="submit">
-                    <div class="flex flex-row items-center rounded-lg transition">
-                        <i class="fa-solid fa-arrow-right-from-bracket mr-3 text-lg w-[22px]"></i>
-                        <span class="font-bold">Log Out</span>
+        {{-- MODIFIED: Show logout button only if logged in --}}
+        @auth
+            <div class="mt-auto mb-6 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
+                <form action="#" method="POST">
+                    @csrf
+                    <button class="text-md" type="submit">
+                        <div class="flex flex-row items-center rounded-lg transition">
+                            <i class="fa-solid fa-arrow-right-from-bracket mr-3 text-lg w-[22px]"></i>
+                            <span class="font-bold">Log Out</span>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        @endauth
+
+        {{-- MODIFIED: Show login button if they are a guest --}}
+        @guest
+            <div class="mt-auto mb-6">
+                <a href="#" class="text-md">
+                    <div class="p-3 hover:bg-sky-500 rounded-lg transition text-sky-500 hover:text-white">
+                        <div class="flex flex-row items-center rounded-lg transition">
+                            <i class="fa-solid fa-arrow-right-to-bracket mr-3 text-lg w-[22px]"></i>
+                            <span class="font-bold">Log In</span>
+                        </div>
                     </div>
-                </button>
-            </form>
-        </div>
+                </a>
+            </div>
+        @endguest
     </div>
 </aside>
 
@@ -182,7 +198,7 @@
 <div id="smallNav" class="bg-white border-b-2 absolute w-full z-[99] lg:hidden">
     <ul class="ml-0">
         <ul class="m-3">
-            <a href="{{ route('admin.events.index') }}" class="text-md">
+           <a href="#" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-regular fa-file-lines mr-3 text-lg w-[22px]"></i>
                     <span>Event</span>
@@ -194,28 +210,25 @@
                     <span>Pray List</span>
                 </li>
             </a>
-            <a href="https://youtube.com" class="text-md">
+            <a href="#" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-photo-film mr-3 text-lg w-[22px]"></i>
                     <span>Streaming</span>
                 </li>
             </a>
-            
-            <a href="https://youtube.com" class="text-md">
+            <a href="#" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-bullhorn mr-3 text-lg w-[22px]"></i>
                     <span>Announcement</span>
                 </li>
             </a>
-            
-            <a href="https://youtube.com" class="text-md">
+            <a href="{{ route('admin.materials.index') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-book mr-3 text-lg w-[22px]"></i>
                     <span>Material PDF</span>
                 </li>
             </a>
-            
-            <a href="https://youtube.com" class="text-md">
+            <a href="#" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
                     <span>Static Content</span>
@@ -238,27 +251,44 @@
             <hr>
         </ul>
 
-        {{-- Profile --}}
-        <div class="m-3 px-3 flex align-center justify-left mt-12">
-            <img src="{{ asset('assets/icons/profile.png') }}" alt="profile_icon"
-                class="h-[15px] object-contain my-auto mr-4">
-            <div class="flex flex-col my-auto mr-4">
-                {{-- <p>{{ auth()->user()->name }}</p> --}}
+        {{-- MODIFIED: Show profile info only if logged in --}}
+        @auth
+            {{-- Profile --}}
+            <div class="m-3 px-3 flex align-center justify-left mt-12">
+                <img src="{{ asset('assets/icons/profile.png') }}" alt="profile_icon"
+                    class="h-[15px] object-contain my-auto mr-4">
+                <div class="flex flex-col my-auto mr-4">
+                    <p>{{ auth()->user()->name }}</p>
+                </div>
             </div>
-        </div>
 
-        {{-- Logout --}}
-        <div class="mt-0 m-3 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
-            <form action="{{ route('admin.logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="text-md">
-                    <div class="flex flex-row items-center rounded-lg transition">
-                        <i class="fa-solid fa-arrow-right-from-bracket mr-3 text-lg w-[22px]"></i>
-                        <span class="font-bold">Log Out</span>
+            {{-- Logout --}}
+            <div class="mt-0 m-3 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
+                <form action="#" method="POST">
+                    @csrf
+                    <button type="submit" class="text-md">
+                        <div class="flex flex-row items-center rounded-lg transition">
+                            <i class="fa-solid fa-arrow-right-from-bracket mr-3 text-lg w-[22px]"></i>
+                            <span class="font-bold">Log Out</span>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        @endauth
+        
+        {{-- MODIFIED: Show login button if they are a guest --}}
+        @guest
+            <div class="mt-12 m-3">
+                <a href="#" class="text-md">
+                    <div class="p-3 hover:bg-sky-500 rounded-lg transition text-sky-500 hover:text-white">
+                        <div class="flex flex-row items-center rounded-lg transition">
+                            <i class="fa-solid fa-arrow-right-to-bracket mr-3 text-lg w-[22px]"></i>
+                            <span class="font-bold">Log In</span>
+                        </div>
                     </div>
-                </button>
-            </form>
-        </div>
+                </a>
+            </div>
+        @endguest
     </ul>
 </div>
 
