@@ -15,6 +15,11 @@ class AuthController extends Controller
         return view('auth.admin-login');
     }
 
+    public function show_admin_list()
+    {
+        return view('admin.admin-list');
+    }
+
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
@@ -37,7 +42,7 @@ class AuthController extends Controller
 
             Auth::login($user);
 
-            return redirect()->intended('/admin/events');
+            return redirect()->route('admin.events.index');
         } catch (\Exception $e) {
             Log::error('Google OAuth error: ' . $e->getMessage());
             return redirect()->route('admin.login')->with('error', 'Terjadi kesalahan saat login dengan Google. Silakan coba lagi.');
