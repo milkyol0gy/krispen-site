@@ -14,5 +14,12 @@ class Material extends Model
     protected $fillable = [
         'title',
         'url',
+        'description',
+        'published_date',
+    ];
+
+
+    protected $casts = [
+        'published_date' => 'date',
     ];
 }
