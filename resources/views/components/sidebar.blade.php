@@ -1,70 +1,28 @@
+{{-- =========================================
+    Disesuaikan dengan route: php artisan route:list
+========================================= --}}
+
+@php
+    $menuItems = [
+        ['name' => 'Materials', 'icon' => 'fa-solid fa-book', 'route' => 'admin.materials.index'],
+        ['name' => 'Sermons', 'icon' => 'fa-solid fa-microphone-lines', 'route' => 'admin.sermons.index'],
+        ['name' => 'Static Pages', 'icon' => 'fa-solid fa-file-lines', 'route' => 'admin.statics.index'],
+    ];
+@endphp
+
 {{-- Style --}}
 <style>
-    .ham {
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-        transition: transform 400ms;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    .hamRotate.active {
-        transform: rotate(45deg);
-    }
-
-    .hamRotate180.active {
-        transform: rotate(180deg);
-    }
-
-    .line {
-        fill: none;
-        transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
-        stroke: #000;
-        stroke-width: 5.5;
-        stroke-linecap: round;
-    }
-
-    .ham8 .top {
-        stroke-dasharray: 40 160;
-    }
-
-    .ham8 .middle {
-        stroke-dasharray: 40 142;
-        transform-origin: 50%;
-        transition: transform 400ms;
-    }
-
-    .ham8 .bottom {
-        stroke-dasharray: 40 85;
-        transform-origin: 50%;
-        transition: transform 400ms, stroke-dashoffset 400ms;
-    }
-
-    .ham8.active .top {
-        stroke-dashoffset: -64px;
-    }
-
-    .ham8.active .middle {
-        transform: rotate(90deg);
-    }
-
-    .ham8.active .bottom {
-        stroke-dashoffset: -64px;
-    }
-
-    #smallNav {
-        margin-top: -450px;
-        transition: all 1s ease;
-    }
-
-    #smallNav.active {
-        margin-top: 0px;
-    }
+    .ham { cursor: pointer; transition: transform 400ms; user-select: none; }
+    .hamRotate.active { transform: rotate(45deg); }
+    .line { fill: none; stroke: #000; stroke-width: 5.5; stroke-linecap: round; transition: all 400ms; }
+    .ham8 .top { stroke-dasharray: 40 160; }
+    .ham8 .middle { stroke-dasharray: 40 142; transform-origin: 50%; transition: transform 400ms; }
+    .ham8 .bottom { stroke-dasharray: 40 85; transform-origin: 50%; transition: transform 400ms, stroke-dashoffset 400ms; }
+    .ham8.active .top, .ham8.active .bottom { stroke-dashoffset: -64px; }
+    .ham8.active .middle { transform: rotate(90deg); }
+    #smallNav { margin-top: -450px; transition: all 0.6s ease; }
+    #smallNav.active { margin-top: 0; }
 </style>
-
-
 
 {{-- Sidebar --}}
 <aside class="w-64 h-screen border-e-2 fixed hidden lg:block">
@@ -175,23 +133,16 @@
     </div>
 </aside>
 
-
-
-{{-- Small Navbar --}}
-{{-- Hamburger Icon & Nav --}}
-<div class="h-[70px] w-screen bg-white border-b-2 flex lg:hidden z-[100] relative">
-    <a href="#" class="ml-4">
-        <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-[110px] object-cover mt-[-5px]">
-    </a>
-    <div id="toggle" class="ms-auto me-4 self-center active:bg-gray-200 rounded-full transition">
-        <svg class="ham hamRotate ham8" viewBox="0 0 100 100" width="44" onclick="this.classList.toggle('active')">
-            <path class="line top"
-                d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20" />
+{{-- Mobile Navbar --}}
+<div class="h-[70px] w-full bg-white border-b-2 flex lg:hidden items-center justify-between px-4 z-50">
+    <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-[110px] object-cover">
+    <button id="toggle" class="p-1 rounded-full active:bg-gray-200 transition">
+        <svg class="ham hamRotate ham8" viewBox="0 0 100 100" width="44">
+            <path class="line top" d="m 30,33 h 40 c 3.7,0 7.5,3.1 7.5,8.6 0,5.4 -2.7,8.4 -7.5,8.4 h -20" />
             <path class="line middle" d="m 30,50 h 40" />
-            <path class="line bottom"
-                d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20" />
+            <path class="line bottom" d="m 70,67 h -40 c 0,0 -7.5,-0.8 -7.5,-8.4 0,-7.6 7.5,-8.6 7.5,-8.6 h 20" />
         </svg>
-    </div>
+    </button>
 </div>
 
 {{-- Navbar Content --}}
@@ -292,11 +243,8 @@
     </ul>
 </div>
 
-
-
 {{-- Script --}}
 <script>
-    // Hamburget Icon Logic
     $(document).ready(function() {
         $('#toggle').on('click', function() {
             if ($('#smallNav').hasClass('active')) {
