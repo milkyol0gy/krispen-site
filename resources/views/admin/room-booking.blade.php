@@ -14,12 +14,11 @@
             </a> --}}
         </div>
 
-        {{-- Search Form (Dummy) --}}
         <div class="mb-6">
-            <form method="GET" action="#" class="flex gap-4 items-end">
+            <form method="GET" action="{{ route('admin.events.room-booking') }}" class="flex gap-4 items-end">
                 <div class="flex-1 max-w-md">
                     <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Search Bookings</label>
-                    <input type="text" id="search" name="search" value=""
+                    <input type="text" id="search" name="search" value="{{ $search ?? '' }}"
                         placeholder="Search by user or event name..."
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
@@ -57,111 +56,46 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                    
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="py-3 px-4">1</td>
-                        <td class="py-3 px-4">
-                            <div class="font-semibold text-gray-900">David Wijaya</div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm">Ibu Siti</div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm">Meeting Rutin Pengurus Inti</div>
-                        </td>
-                        <td class="py-3 px-4 text-center">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">12 Orang</span>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm font-medium text-gray-800">
-                                19 Oktober 2025 19:00
-                            </div>
-                            <div class="text-xs text-gray-500">s/d 19 Oktober 2025 21:00</div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm text-gray-600">Proyektor, Whiteboard</div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="py-3 px-4">2</td>
-                        <td class="py-3 px-4">
-                            <div class="font-semibold text-gray-900">Yohana Kusuma</div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm">Bapak Budi</div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm">Sesi Doa Malam</div>
-                        </td>
-                        <td class="py-3 px-4 text-center">
-                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">5 Orang</span>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm font-medium text-gray-800">
-                                25 Oktober 2025 18:30
-                            </div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm text-gray-600">Sound System Kecil</div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="py-3 px-4">3</td>
-                        <td class="py-3 px-4">
-                            <div class="font-semibold text-gray-900">Michael Jonathan</div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm">Ibu Siti</div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm">Pelatihan Fasilitator Baru</div>
-                        </td>
-                        <td class="py-3 px-4 text-center">
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded-full">25 Orang</span>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm font-medium text-gray-800">
-                                01 November 2025 10:00
-                            </div>
-                            <div class="text-xs text-gray-500">s/d 01 November 2025 16:00</div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="text-sm text-gray-600">Laptop, Spidol Permanen</div>
-                        </td>
-                    </tr>
-
-                    
-
+                    @forelse($bookings as $index => $booking)
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="py-3 px-4">{{ $bookings->firstItem() + $index }}</td>
+                            <td class="py-3 px-4">
+                                <div class="font-semibold text-gray-900">{{ $booking->user_name }}</div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="text-sm">{{ $booking->facilitator_name }}</div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="text-sm">{{ $booking->event_name }}</div>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">{{ $booking->number_of_people }} Orang</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="text-sm font-medium text-gray-800">
+                                    {{ \Carbon\Carbon::parse($booking->event_date)->format('d F Y') }} {{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}
+                                </div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="text-sm text-gray-600">{{ $booking->required_equipment }}</div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="py-8 text-center text-gray-500">
+                                No room bookings found.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
 
-        {{-- Pagination Dummy --}}
-        {{-- <div class="mt-6">
-            <nav class="flex items-center justify-center space-x-2">
-                <span
-                    class="px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-300 rounded-lg cursor-not-allowed">
-                    ← Previous
-                </span>
-
-                <span class="px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg">1</span>
-                <a href="#"
-                    class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200">
-                    2
-                </a>
-                <a href="#"
-                    class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200">
-                    3
-                </a>
-                
-                <a href="#"
-                    class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700 transition-all duration-200">
-                    Next →
-                </a>
-            </nav>
-        </div> --}}
+        @if($bookings->hasPages())
+            <div class="mt-6">
+                {{ $bookings->links() }}
+            </div>
+        @endif
 
     </div>
 @endsection

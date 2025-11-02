@@ -8,10 +8,10 @@
         </div>
 
         <div class="mb-6">
-            <form method="GET" action="#" class="flex gap-4 items-end">
+            <form method="GET" action="{{ route('admin.events.prayer-list') }}" class="flex gap-4 items-end">
                 <div class="flex-1 max-w-md">
                     <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Search Prayers</label>
-                    <input type="text" id="search" name="search" value=""
+                    <input type="text" id="search" name="search" value="{{ $search ?? '' }}"
                         placeholder="Search prayer request..."
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
@@ -37,56 +37,34 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-
-                    {{-- DUMMY ROW 1 --}}
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="py-4 px-4 align-top">1</td>
-                        <td class="py-4 px-4 align-top">
-                            <div class="font-semibold text-gray-900 mb-1">Mohon didoakan untuk kesembuhan adik saya yang sedang dirawat di rumah sakit akibat demam berdarah.</div>
-                            
-                        </td>
-                        <td class="py-4 px-4 align-top">
-                            <div class="text-sm font-medium text-gray-800">
-                                10 Oktober 2025
-                            </div>
-                        </td>
-                        {{-- Kolom Action dihapus --}}
-                    </tr>
-
-                    {{-- DUMMY ROW 2 --}}
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="py-4 px-4 align-top">2</td>
-                        <td class="py-4 px-4 align-top">
-                            <div class="font-semibold text-gray-900 mb-1">Saya sedang mencari pekerjaan baru. Mohon didoakan agar Tuhan membuka jalan dan memberikan pekerjaan yang sesuai dengan kehendak-Nya.</div>
-                        </td>
-                        <td class="py-4 px-4 align-top">
-                            <div class="text-sm font-medium text-gray-800">
-                                05 Oktober 2025
-                            </div>
-                        </td>
-                        {{-- Kolom Action dihapus --}}
-                    </tr>
-                    
-                    {{-- DUMMY ROW 3 --}}
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="py-4 px-4 align-top">3</td>
-                        <td class="py-4 px-4 align-top">
-                            <div class="font-semibold text-gray-900 mb-1">Mohon didoakan agar semua panitia retreat memiliki hati yang melayani dan persiapan berjalan lancar.</div>
-                        
-                        </td>
-                        <td class="py-4 px-4 align-top">
-                            <div class="text-sm font-medium text-gray-800">
-                                28 September 2025
-                            </div>
-                        </td>
-                        {{-- Kolom Action dihapus --}}
-                    </tr>
-
+                    @forelse($prayers as $index => $prayer)
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="py-4 px-4 align-top">{{ $prayers->firstItem() + $index }}</td>
+                            <td class="py-4 px-4 align-top">
+                                <div class="font-semibold text-gray-900 mb-1">{{ $prayer->description }}</div>
+                            </td>
+                            <td class="py-4 px-4 align-top">
+                                <div class="text-sm font-medium text-gray-800">
+                                    {{ $prayer->created_at->format('d F Y') }}
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="py-8 text-center text-gray-500">
+                                No prayer requests found.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
 
-        {{-- Pagination dan Statistik (yang dikomentari) tidak perlu diubah karena sudah dikomentari. --}}
+        @if($prayers->hasPages())
+            <div class="mt-6">
+                {{ $prayers->links() }}
+            </div>
+        @endif
         
     </div>
 @endsection

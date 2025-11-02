@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Prayer;
+use App\Models\RoomBook;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -20,20 +22,41 @@ class EventController extends Controller
         return view('events.show', compact('event'));
     }
     
-    public function show_room_booking()
+    public function show_room_booking(Request $request)
     {
-        return view('admin.room-booking');
+        $query = RoomBook::query();
+        
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where(function($q) use ($search) {
+                $q->where('user_name', 'LIKE', "%{$search}%")
+                  ->orWhere('event_name', 'LIKE', "%{$search}%")
+                  ->orWhere('facilitator_name', 'LIKE', "%{$search}%");
+            });
+        }
+        
+        $bookings = $query->orderBy('event_date', 'desc')->paginate(10);
+        $search = $request->get('search');
+        
+        return view('admin.room-booking', compact('bookings', 'search'));
     }
 
-    public function show_prayer_list()
+    public function show_prayer_list(Request $request)
     {
-        return view('admin.prayer-list');
+        $query = Prayer::query();
+        
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where('description', 'LIKE', "%{$search}%");
+        }
+        
+        $prayers = $query->orderBy('created_at', 'desc')->paginate(10);
+        $search = $request->get('search');
+        
+        return view('admin.prayer-list', compact('prayers', 'search'));
     }
 
-     public function show_admin_list()
-    {
-        return view('admin.admin-list');
-    }
+
 
     public function adminIndex(Request $request)
     {

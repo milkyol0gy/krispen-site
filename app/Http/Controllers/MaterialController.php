@@ -20,14 +20,23 @@ class MaterialController extends Controller
 
     /**
      * Display materials for the admin panel.
-     * DataTables.js handles pagination on the front-end.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // FIXED: Switched from paginate() to get() to send all data to DataTables.
-        // The DataTables library will handle search and pagination in the browser.
-        $materials = Material::latest('published_date')->get();
-        return view('materials.materialadmin', compact('materials'));
+        $query = Material::query();
+        
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+        
+        $materials = $query->latest('published_date')->paginate(10);
+        $search = $request->get('search');
+        
+        return view('materials.materialadmin', compact('materials', 'search'));
     }
 
     /**

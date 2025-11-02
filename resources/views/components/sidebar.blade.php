@@ -26,7 +26,7 @@
 
 {{-- Sidebar --}}
 <aside class="w-64 h-screen border-e-2 fixed hidden lg:block">
-    <div class="h-[70px] w-full flex items-center p-3 border-b-2 border-blue-300 bg-white">
+    <div class="h-[70px] w-screen flex items-center p-3 border-b-2 border-blue-300 bg-white fixed top-0 left-0 z-40">
         <a href="#" class="ml-12">
             <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-[80px] object-cover mt-2">
         </a>
@@ -42,11 +42,11 @@
             </div>
         @endauth
     </div>
-    <div class="mx-6 h-screen mt-[-70px] flex flex-col mb-5">
+    <div class="mx-6 h-screen mt-0 flex flex-col mb-5">
         {{-- Navlist --}}
         <div class="mt-[85px]">
             <ul>
-                <a href="#" class="text-md">
+                <a href="{{ route('admin.events.index') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-regular fa-calendar-days mr-3 text-lg w-[22px]"></i>
                         <span>Event</span>
@@ -66,7 +66,7 @@
                         <span>Streaming</span>
                     </li>
                 </a>
-                <a href="#" class="text-md">
+                <a href="{{ route('admin.announcement.index') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-bullhorn mr-3 text-lg w-[22px]"></i>
                         <span>Announcement</span>
@@ -78,7 +78,7 @@
                         <span>Material PDF</span>
                     </li>
                 </a>
-                <a href="#" class="text-md">
+                <a href="{{ route('admin.statics.index') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
                         <span>Static Content</span>
@@ -105,7 +105,7 @@
         {{-- MODIFIED: Show logout button only if logged in --}}
         @auth
             <div class="mt-auto mb-6 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
-                <form action="#" method="POST">
+                <form action="{{ route('admin.logout') }}" method="POST">
                     @csrf
                     <button class="text-md" type="submit">
                         <div class="flex flex-row items-center rounded-lg transition">
@@ -149,7 +149,7 @@
 <div id="smallNav" class="bg-white border-b-2 absolute w-full z-[99] lg:hidden">
     <ul class="ml-0">
         <ul class="m-3">
-           <a href="#" class="text-md">
+           <a href="{{ route('admin.events.index') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-regular fa-file-lines mr-3 text-lg w-[22px]"></i>
                     <span>Event</span>
@@ -161,13 +161,13 @@
                     <span>Pray List</span>
                 </li>
             </a>
-            <a href="#" class="text-md">
+            <a href="{{ route('admin.sermons.index') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-photo-film mr-3 text-lg w-[22px]"></i>
                     <span>Streaming</span>
                 </li>
             </a>
-            <a href="#" class="text-md">
+            <a href="{{ route('admin.announcement.index') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-bullhorn mr-3 text-lg w-[22px]"></i>
                     <span>Announcement</span>
@@ -179,7 +179,7 @@
                     <span>Material PDF</span>
                 </li>
             </a>
-            <a href="#" class="text-md">
+            <a href="{{ route('admin.statics.index') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
                     <span>Static Content</span>
@@ -215,7 +215,7 @@
 
             {{-- Logout --}}
             <div class="mt-0 m-3 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
-                <form action="#" method="POST">
+                <form action="{{ route('admin.logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="text-md">
                         <div class="flex flex-row items-center rounded-lg transition">

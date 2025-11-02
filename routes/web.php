@@ -7,6 +7,8 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\StaticPageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventRegistController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AdminController;
 
 // Public facing route
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
@@ -39,7 +41,10 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
         Route::delete('/{id}/delete', [EventController::class, 'destroy'])->name('destroy');
         Route::get('/room-booking', [EventController::class, 'show_room_booking'])->name('room-booking');
         Route::get('/prayer-list', [EventController::class, 'show_prayer_list'])->name('prayer-list');
-        Route::get('/admin-list', [EventController::class, 'show_admin_list'])->name('admin-list');
+        Route::get('/admin-list', [AdminController::class, 'index'])->name('admin-list');
+        Route::post('/admin-store', [AdminController::class, 'store'])->name('admin-store');
+        Route::put('/admin-list/{id}/update', [AdminController::class, 'update'])->name('admin-update');
+        Route::delete('/admin-list/{id}/delete', [AdminController::class, 'destroy'])->name('admin-delete');
     });
 
     // Route names will now be materials.index, materials.create, etc. (NO 'admin.' prefix)
@@ -71,6 +76,14 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
         Route::delete('/destroy/{static}', [StaticPageController::class, 'destroy'])->name('destroy');
     });
 
+    Route::prefix('announcement')->name('announcement.')->group(function () {
+        Route::get('/', [AnnouncementController::class, 'index'])->name('index');
+        Route::get('/create', [AnnouncementController::class, 'create'])->name('create');
+        Route::post('/store', [AnnouncementController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [AnnouncementController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [AnnouncementController::class, 'update'])->name('update');
+        Route::delete('/{id}/delete', [AnnouncementController::class, 'destroy'])->name('destroy');
+    });
     // Route::prefix('admin_list')->name('admin_list.')->group(function () {    
     //     Route::get('/', [AuthController::class, 'show_admin_list'])->name('index');
     // });
