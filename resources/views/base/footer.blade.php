@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <footer class="bg-[#1b2b2a] text-white py-8 ">
 
     <div class="grid place-items-center grid-cols-1 sm:grid-cols-3 text-center sm:text-left gap-8 sm:gap-4 px-6">

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomBook extends Model
 {
+    protected $table = 'room_books';
     protected $fillable = [
         'user_name', 'facilitator_name', 'event_name', 
         'number_of_people', 'event_date', 'start_time', 'required_equipment'
