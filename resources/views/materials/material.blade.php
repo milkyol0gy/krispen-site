@@ -25,7 +25,7 @@
 <div class="w-full mx-auto">
     {{-- ========= HERO SECTION (Unchanged) ========= --}}
     <div class="relative">
-        <img src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=1200&auto=format&fit=crop" alt="Hero Image" class="w-full h-48 object-cover sm:rounded-b-md">
+        <img src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=1200&auto=format&fit=crop" alt="Hero Image" class="w-full h-48 object-cover ">
         <div class="absolute inset-0 bg-black bg-opacity-30 sm:rounded-b-md"></div>
         <div class="absolute top-0 left-0 w-full flex items-center justify-between px-4 py-3 z-10">
             <img src="https://placehold.co/40x40" alt="Logo" class="rounded-full w-10 h-10">

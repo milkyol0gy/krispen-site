@@ -9,14 +9,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventRegistController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\PersembahanController;
 // Public facing route
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 Route::get('/static', [StaticPageController::class, 'publicIndex'])->name('statics.public');
 Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.public');
-
+Route::get('/persembahan', [PersembahanController::class, 'persembahan'])->name('persembahan');
 Route::get('/events/{id}/register', [EventRegistController::class, 'create'])->name('events.register');
 Route::post('/events/{id}/register', [EventRegistController::class, 'store'])->name('events.register.store');
 Route::get('/events/{id}/register/success', [EventRegistController::class, 'success'])->name('events.register.success');
@@ -27,7 +27,7 @@ Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallbac
 
 // --- ADMIN ROUTES (Manual Definition) ---
 Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function () {
-    
+
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -84,7 +84,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
         Route::put('/{id}/update', [AnnouncementController::class, 'update'])->name('update');
         Route::delete('/{id}/delete', [AnnouncementController::class, 'destroy'])->name('destroy');
     });
-    // Route::prefix('admin_list')->name('admin_list.')->group(function () {    
+    // Route::prefix('admin_list')->name('admin_list.')->group(function () {
     //     Route::get('/', [AuthController::class, 'show_admin_list'])->name('index');
     // });
 });
