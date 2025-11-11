@@ -11,6 +11,8 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RoomBookController;
 use App\Http\Controllers\PersembahanController;
+use App\Http\Controllers\CellCommunityController;
+use App\Http\Controllers\PrayerController;
 
 // Public facing route
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
@@ -23,6 +25,11 @@ Route::get('/room-book', [RoomBookController::class, 'index'])->name('roombook.p
 Route::post('/room-book-store', [RoomBookController::class, 'store'])->name('roombook.store');
 
 Route::get('/persembahan', [PersembahanController::class, 'persembahan'])->name('persembahan');
+
+Route::get('/cell-community', [CellCommunityController::class, 'index'])->name('cell-community.public');
+
+Route::get('/prayer-request', [PrayerController::class, 'index'])->name('prayer.request');
+Route::post('/prayer-request', [PrayerController::class, 'store'])->name('prayer.store');
 
 Route::get('/events/{id}/register', [EventRegistController::class, 'create'])->name('events.register');
 Route::post('/events/{id}/register', [EventRegistController::class, 'store'])->name('events.register.store');

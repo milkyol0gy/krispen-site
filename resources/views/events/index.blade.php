@@ -24,13 +24,18 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Trajan+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .trajan-font { font-family: 'Trajan Pro', serif; }
+        .poppins-font { font-family: 'Poppins', sans-serif; }
+    </style>
     <title>Events - Krispen</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="bg-white">
+<body class="bg-white poppins-font">
 
     <div class="max-w-7xl mx-auto my-8 overflow-hidden flex flex-col gap-8 bg-white">
         <div class="relative h-80 bg-cover bg-center bg-no-repeat rounded-2xl overflow-hidden"
