@@ -87,8 +87,13 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
     // Route::prefix('admin_list')->name('admin_list.')->group(function () {    
     //     Route::get('/', [AuthController::class, 'show_admin_list'])->name('index');
     // });
+
 });
 
 Route::get('/test-route', function () {
     return 'Route berhasil diakses!';
+});
+
+    Route::get('/visimisi', function () {
+    return view('visimisi.visimisi');
 });
