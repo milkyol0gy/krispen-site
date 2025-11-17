@@ -46,7 +46,7 @@
         {{-- Navlist --}}
         <div class="mt-[85px]">
             <ul>
-                <a href="{{ route('admin.events.index') }}" class="text-md">
+                <a href="#" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-regular fa-calendar-days mr-3 text-lg w-[22px]"></i>
                         <span>Event</span>
