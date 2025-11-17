@@ -98,6 +98,13 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
         Route::put('/{id}/update', [AnnouncementController::class, 'update'])->name('update');
         Route::delete('/{id}/delete', [AnnouncementController::class, 'destroy'])->name('destroy');
     });
+
+    Route::prefix('cell-communities')->name('cell-communities.')->group(function () {
+        Route::get('/', [CellCommunityController::class, 'adminIndex'])->name('index');
+        Route::post('/store', [CellCommunityController::class, 'store'])->name('store');
+        Route::put('/{id}/update', [CellCommunityController::class, 'update'])->name('update');
+        Route::delete('/{id}/delete', [CellCommunityController::class, 'destroy'])->name('destroy');
+    });
     // Route::prefix('admin_list')->name('admin_list.')->group(function () {
     //     Route::get('/', [AuthController::class, 'show_admin_list'])->name('index');
     // });

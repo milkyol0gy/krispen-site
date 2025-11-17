@@ -2,8 +2,7 @@
     <div class="flex items-center justify-between h-24 px-8">
         <div class="flex items-center">
             <div class="w-12 h-12 rounded-2xl overflow-hidden">
-                <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="w-full h-full object-cover"
-                    style="background-color: #CDBECB;">
+                <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
             </div>
         </div>
 
@@ -51,8 +50,7 @@
         <div class="flex items-center justify-between p-6 border-b border-gray-200">
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-xl overflow-hidden">
-                    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="w-full h-full object-cover"
-                        style="background-color: #CDBECB;">
+                    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
                 </div>
                 <h2 class="text-lg font-semibold text-gray-800">Menu</h2>
             </div>
@@ -82,6 +80,10 @@
             </div>
             
             <!-- Additional Menu Items -->
+            <a href="{{ route('materials.public') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fas fa-book w-5"></i>
+                <span>Materials</span>
+            </a>
             <a href="{{ route('prayer.request') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
                 <i class="fas fa-praying-hands w-5"></i>
                 <span>Permohonan Doa</span>
@@ -98,7 +100,7 @@
                 <i class="fas fa-video w-5"></i>
                 <span>Rekaman Khotbah</span>
             </a>
-            <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+            <a href="{{ route('persembahan') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
                 <i class="fas fa-heart w-5"></i>
                 <span>Persembahan</span>
             </a>

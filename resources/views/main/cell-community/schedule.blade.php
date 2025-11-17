@@ -41,27 +41,33 @@
     <style>
         .trajan-font { font-family: 'Trajan Pro', serif; }
         .poppins-font { font-family: 'Poppins', sans-serif; }
+        
+        /* Smooth animations */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .slide-in-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s ease; }
+        .slide-in-left.visible { opacity: 1; transform: translateX(0); }
+        .scale-in { opacity: 0; transform: scale(0.9); transition: all 0.6s ease; }
+        .scale-in.visible { opacity: 1; transform: scale(1); }
+        .hero-title { animation: heroSlide 1.2s ease-out; }
+        
+        @keyframes heroSlide {
+            0% { opacity: 0; transform: translateX(-100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
     </style>
 </head>
 <body class="bg-white">
     <div class="max-w-7xl mx-auto my-8 overflow-hidden flex flex-col gap-8 bg-white">
-        <div class="relative h-80 bg-cover bg-center bg-no-repeat rounded-2xl overflow-hidden"
-            style="background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib-rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
-            <div class="absolute inset-0"
-                style="background: linear-gradient(45deg, rgba(26, 45, 16, 0.8), rgba(89, 126, 114, 0.6))"></div>
-
-            @include('components.navbar')
-
-            <div class="absolute bottom-12 left-8 z-10">
-                <h1 class="text-3xl font-bold text-white tracking-wide poppins-font">Jadwal Komunitas Sel</h1>
-            </div>
-        </div>
+        @include('components.hero-section', ['title' => 'Jadwal Komunitas Sel'])
 
         <!-- Content Section -->
-        <div class="px-4 py-16">
+        <div class="px-4 py-16 fade-in">
             <!-- Avatar and Title -->
-            <div class="text-center mb-12">
-                <div class="w-16 h-16 bg-gray-300 rounded-full mx-auto mb-6"></div>
+            <div class="text-center mb-12 slide-in-left">
+                <div class="w-16 h-16 rounded-2xl overflow-hidden mx-auto mb-6">
+                    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
+                </div>
                 <h2 class="trajan-font text-xl md:text-4xl font-bold text-gray-900 mb-4 tracking-wider">
                     Jadwal Komunitas Sel
                 </h2>
@@ -73,7 +79,7 @@
             <!-- Schedule Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($cellCommunities as $community)
-                    <div class="bg-[#8FB6B3] rounded-2xl p-6 shadow-lg hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="bg-[#8FB6B3] rounded-2xl p-6 shadow-lg hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 scale-in" data-delay="{{ $loop->index * 100 }}">
                         <h3 class="poppins-font font-semibold text-white text-lg uppercase mb-4">
                             {{ $community->name }}
                         </h3>
@@ -108,5 +114,31 @@
 
     <!-- Footer -->
     @include('base.footer')
+    
+    <script>
+        // Smooth scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .scale-in');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>

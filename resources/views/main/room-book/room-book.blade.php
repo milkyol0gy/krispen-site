@@ -15,29 +15,32 @@
         [x-cloak] { display: none !important; }
         .font-poppins { font-family: 'Poppins', sans-serif; }
         .font-playfair { font-family: 'Playfair Display', serif; }
+        
+        /* Smooth animations */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .slide-in-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s ease; }
+        .slide-in-left.visible { opacity: 1; transform: translateX(0); }
+        .scale-in { opacity: 0; transform: scale(0.9); transition: all 0.6s ease; }
+        .scale-in.visible { opacity: 1; transform: scale(1); }
+        .hero-title { animation: heroSlide 1.2s ease-out; }
+        
+        @keyframes heroSlide {
+            0% { opacity: 0; transform: translateX(-100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
     </style>
 </head>
 <body class="bg-white font-poppins">
 
 <div class="max-w-7xl mx-auto my-8 overflow-hidden flex flex-col gap-8 bg-white">
-    <!-- Hero Section -->
-    <div class="relative h-80 bg-cover bg-center bg-no-repeat rounded-2xl overflow-hidden"
-        style="background-image: url('{{ asset('assets/streaming_background.png') }}');">
-        <div class="absolute inset-0"
-            style="background: linear-gradient(45deg, rgba(26, 45, 16, 0.8), rgba(89, 126, 114, 0.6))"></div>
-
-        @include('components.navbar')
-
-        <div class="absolute bottom-12 left-8 z-10">
-            <h1 class="text-5xl font-bold text-white tracking-wide">Peminjaman Ruangan</h1>
-        </div>
-    </div>
+    @include('components.hero-section', ['title' => 'Peminjaman Ruangan'])
     <!-- Content Section -->
-    <div class="py-16 px-8 rounded-2xl" style="background-color: #90B7BF;">
+    <div class="py-16 px-8 rounded-2xl fade-in" style="background-color: #90B7BF;">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-center text-xl font-bold text-[#122B1D] mb-12 tracking-widest">FORM PEMINJAMAN RUANGAN</h2>
+            <h2 class="text-center text-xl font-bold text-[#122B1D] mb-12 tracking-widest slide-in-left">FORM PEMINJAMAN RUANGAN</h2>
             
-            <div class="bg-white rounded-lg shadow-md p-8 lg:p-12">
+            <div class="bg-white rounded-lg shadow-md p-8 lg:p-12 scale-in">
                 <form id="waForm" class="space-y-6">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -165,7 +168,7 @@ document.getElementById("waForm").addEventListener("submit", async function(e) {
     }
 
     // 2) setelah simpan, buka WhatsApp
-    const baseUrl = "https://wa.me/123456789?text="; // ganti nomor
+    const baseUrl = "https://wa.me/089699934379?text="; // ganti nomor
     const text =
       "Form Peminjaman Ruang%0A" +
       "Nama peminjam: " + encodeURIComponent(namaPeminjam) + "%0A" +
@@ -189,6 +192,30 @@ document.getElementById("waForm").addEventListener("submit", async function(e) {
     // tombol OK -> refresh
 document.getElementById("closeModalBtn").addEventListener("click", function () {
     location.reload();
+});
+
+// Smooth scroll animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const delay = entry.target.dataset.delay || 0;
+            setTimeout(() => {
+                entry.target.classList.add('visible');
+            }, delay);
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe all animated elements
+document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .scale-in');
+    animatedElements.forEach(el => observer.observe(el));
 });
 </script>
 

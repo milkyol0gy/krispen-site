@@ -85,6 +85,13 @@
                     </li>
                 </a>
                 
+                <a href="{{ route('admin.cell-communities.index') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-users mr-3 text-lg w-[22px]"></i>
+                        <span>Cell Communities</span>
+                    </li>
+                </a>
+                
                 <a href="{{ route('admin.events.room-booking') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
@@ -183,6 +190,13 @@
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
                     <span>Static Content</span>
+                </li>
+            </a>
+            
+            <a href="{{ route('admin.cell-communities.index') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-users mr-3 text-lg w-[22px]"></i>
+                    <span>Cell Communities</span>
                 </li>
             </a>
             
