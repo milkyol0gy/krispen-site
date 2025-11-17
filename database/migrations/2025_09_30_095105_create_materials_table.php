@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('url'); // To store the path of the PDF
+            $table->string('url');
+            $table->text('description')->nullable();
+            $table->date('published_date')->nullable();
             $table->timestamps();
         });
     }

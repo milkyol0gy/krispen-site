@@ -4,56 +4,81 @@ namespace App\Http\Controllers;
 
 use App\Models\Material;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreMaterialRequest; // Using the Form Request for validation
 
 class MaterialController extends Controller
 {
+    /**
+     * Display a paginated list of materials for the public.
+     */
     public function publicIndex()
     {
-        $materials = Material::latest()->get();
+        // FIXED: The public page should use server-side pagination.
+        $materials = Material::latest('published_date')->paginate(12);
         return view('materials.material', compact('materials'));
     }
 
-    public function index()
+    /**
+     * Display materials for the admin panel.
+     */
+    public function index(Request $request)
     {
-        $materials = Material::latest()->paginate(10);
-        // Points to your 'materialadmin' file inside the 'materials' folder
-        return view('materials.materialadmin', compact('materials'));
+        $query = Material::query();
+        
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+        
+        $materials = $query->latest('published_date')->paginate(10);
+        $search = $request->get('search');
+        
+        return view('materials.materialadmin', compact('materials', 'search'));
     }
 
-
-
+    /**
+     * Show the form for creating a new material.
+     */
     public function create()
     {
-        // Points to your 'create' file inside the 'materials' folder
         return view('materials.create');
     }
 
-    public function store(Request $request)
+    /**
+     * Store a newly created material in storage.
+     */
+    public function store(StoreMaterialRequest $request)
     {
-        $request->validate([ 'title' => 'required|string|max:255', 'url' => 'required|url|max:2048', ]);
-        Material::create($request->only('title', 'url'));
-        // Redirects to the new route name
-        return redirect()->route('materials.index')->with('success', 'Material link created successfully.');
+        Material::create($request->validated());
+        return redirect()->route('admin.materials.index')->with('success', 'Material link created successfully.');
     }
 
+    /**
+     * Show the form for editing the specified material.
+     */
     public function edit(Material $material)
     {
-        // Points to your 'edit' file inside the 'materials' folder
         return view('materials.edit', compact('material'));
     }
 
-    public function update(Request $request, Material $material)
+    /**
+     * Update the specified material in storage.
+     */
+    public function update(StoreMaterialRequest $request, Material $material)
     {
-        $request->validate([ 'title' => 'required|string|max:255', 'url' => 'required|url|max:2048', ]);
-        $material->update($request->only('title', 'url'));
-        // Redirects to the new route name
-        return redirect()->route('materials.index')->with('success', 'Material link updated successfully.');
+        $material->update($request->validated());
+        return redirect()->route('admin.materials.index')->with('success', 'Material link updated successfully.');
     }
 
+    /**
+     * Remove the specified material from storage.
+     */
     public function destroy(Material $material)
     {
         $material->delete();
-        // Redirects to the new route name
-        return redirect()->route('materials.index')->with('success', 'Material link deleted successfully.');
+        return redirect()->route('admin.materials.index')->with('success', 'Material link deleted successfully.');
     }
 }

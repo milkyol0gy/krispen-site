@@ -15,11 +15,19 @@ class StaticPageController extends Controller
     }
 
     // Admin index
-    public function index()
+    public function index(Request $request)
     {
-        $statics = StaticPage::latest()->get();
-        $count = StaticPage::count();
-        return view('admin.static.list', compact('statics', 'count'));
+        $query = StaticPage::query();
+        
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where('title', 'LIKE', "%{$search}%");
+        }
+        
+        $statics = $query->latest()->paginate(10);
+        $search = $request->get('search');
+        
+        return view('admin.static.list', compact('statics', 'search'));
     }
 
     public function create()

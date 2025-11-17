@@ -25,40 +25,111 @@
 </style>
 
 {{-- Sidebar --}}
-<aside class="w-64 h-screen border-e-2 fixed hidden lg:block bg-white">
-    {{-- Header --}}
-    <div class="h-[70px] flex items-center justify-between p-4 border-b-2 border-blue-300">
-        <a href="/" class="flex items-center">
-            <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-[110px] object-cover">
+<aside class="w-64 h-screen border-e-2 fixed hidden lg:block">
+    <div class="h-[70px] w-screen flex items-center p-3 border-b-2 border-blue-300 bg-white fixed top-0 left-0 z-40">
+        <a href="#" class="ml-12">
+            <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-[80px] object-cover mt-2">
         </a>
-        <div class="flex items-center">
-            <img src="{{ asset('assets/icons/profile.png') }}" alt="profile_icon" class="h-[20px] mr-2">
-            <p class="text-sm font-medium">{{ auth()->user()->name ?? 'Admin' }}</p>
-        </div>
+        
+        {{-- MODIFIED: Show profile info only if logged in --}}
+        @auth
+            <div class="ml-auto flex align-center justify-center">
+                <img src="{{ asset('assets/icons/profile.png') }}" alt="profile_icon"
+                    class="h-[15px] object-contain my-auto mr-4">
+                <div class="flex flex-col my-auto mr-4">
+                    <p>{{ auth()->user()->name }}</p>
+                </div>
+            </div>
+        @endauth
     </div>
+    <div class="mx-6 h-screen mt-0 flex flex-col mb-5">
+        {{-- Navlist --}}
+        <div class="mt-[85px]">
+            <ul>
+                <a href="{{ route('admin.events.index') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-regular fa-calendar-days mr-3 text-lg w-[22px]"></i>
+                        <span>Event</span>
+                    </li>
+                </a>
+                
+                <a href="{{ route('admin.events.prayer-list') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-hands-praying mr-3 text-lg w-[22px]"></i>
+                        <span>Prayer List</span>
+                    </li>
+                </a>
+                
+                <a href="{{ route('admin.sermons.index') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-photo-film mr-3 text-lg w-[22px]"></i>
+                        <span>Streaming</span>
+                    </li>
+                </a>
+                <a href="{{ route('admin.announcement.index') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-bullhorn mr-3 text-lg w-[22px]"></i>
+                        <span>Announcement</span>
+                    </li>
+                </a>
+                <a href="{{ route('admin.materials.index') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-book mr-3 text-lg w-[22px]"></i>
+                        <span>Material PDF</span>
+                    </li>
+                </a>
+                <a href="{{ route('admin.statics.index') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
+                        <span>Static Content</span>
+                    </li>
+                </a>
+                
+                <a href="{{ route('admin.events.room-booking') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
+                        <span>Room Booking</span>
+                    </li>
+                </a>
+                
+                <a href="{{ route('admin.events.admin-list') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-user-tie mr-3 text-lg w-[22px]"></i>
+                        <span>Admin List</span>
+                    </li>
+                </a>
+                <hr>
+            </ul>
+        </div>
 
-    {{-- Navlist --}}
-    <div class="flex flex-col justify-between h-[calc(100%-70px)] px-6 pb-6">
-        <nav class="mt-6 space-y-1">
-            @foreach ($menuItems as $item)
-                @if (Route::has($item['route']))
-                    <a href="{{ route($item['route']) }}">
-                        <li class="flex items-center p-2 px-3 my-1 rounded-lg transition hover:bg-gray-200 {{ request()->routeIs($item['route']) ? 'bg-blue-50 border-l-4 border-blue-500' : '' }}">
-                            <i class="{{ $item['icon'] }} mr-3 text-lg w-[22px] text-gray-700"></i>
-                            <span class="text-gray-800 font-medium">{{ $item['name'] }}</span>
-                        </li>
-                    </a>
-                @endif
-            @endforeach
-        </nav>
+        {{-- MODIFIED: Show logout button only if logged in --}}
+        @auth
+            <div class="mt-auto mb-6 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
+                <form action="{{ route('admin.logout') }}" method="POST">
+                    @csrf
+                    <button class="text-md" type="submit">
+                        <div class="flex flex-row items-center rounded-lg transition">
+                            <i class="fa-solid fa-arrow-right-from-bracket mr-3 text-lg w-[22px]"></i>
+                            <span class="font-bold">Log Out</span>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        @endauth
 
-        {{-- Logout --}}
-        <form action="{{ route('logout') }}" method="POST" class="mt-auto">
-            @csrf
-            <button class="w-full flex items-center justify-center p-3 bg-red-50 hover:bg-rose-500 hover:text-white text-red-500 rounded-lg transition font-semibold">
-                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Log Out
-            </button>
-        </form>
+        {{-- MODIFIED: Show login button if they are a guest --}}
+        @guest
+            <div class="mt-auto mb-6">
+                <a href="#" class="text-md">
+                    <div class="p-3 hover:bg-sky-500 rounded-lg transition text-sky-500 hover:text-white">
+                        <div class="flex flex-row items-center rounded-lg transition">
+                            <i class="fa-solid fa-arrow-right-to-bracket mr-3 text-lg w-[22px]"></i>
+                            <span class="font-bold">Log In</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endguest
     </div>
 </aside>
 
@@ -74,33 +145,101 @@
     </button>
 </div>
 
-{{-- Mobile Dropdown --}}
-<div id="smallNav" class="bg-white border-b-2 absolute w-full z-40 lg:hidden shadow-md">
-    <ul class="p-3">
-        @foreach ($menuItems as $item)
-            @if (Route::has($item['route']))
-                <a href="{{ route($item['route']) }}">
-                    <li class="flex items-center p-2 px-3 my-1 hover:bg-gray-100 rounded-lg transition {{ request()->routeIs($item['route']) ? 'bg-blue-50 border-l-4 border-blue-500' : '' }}">
-                        <i class="{{ $item['icon'] }} mr-3 text-lg w-[22px]"></i>
-                        <span>{{ $item['name'] }}</span>
-                    </li>
+{{-- Navbar Content --}}
+<div id="smallNav" class="bg-white border-b-2 absolute w-full z-[99] lg:hidden">
+    <ul class="ml-0">
+        <ul class="m-3">
+           <a href="{{ route('admin.events.index') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-regular fa-file-lines mr-3 text-lg w-[22px]"></i>
+                    <span>Event</span>
+                </li>
+            </a>
+            <a href="{{ route('admin.events.prayer-list') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-hands-praying mr-3 text-lg w-[22px]"></i>
+                    <span>Pray List</span>
+                </li>
+            </a>
+            <a href="{{ route('admin.sermons.index') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-photo-film mr-3 text-lg w-[22px]"></i>
+                    <span>Streaming</span>
+                </li>
+            </a>
+            <a href="{{ route('admin.announcement.index') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-bullhorn mr-3 text-lg w-[22px]"></i>
+                    <span>Announcement</span>
+                </li>
+            </a>
+            <a href="{{ route('admin.materials.index') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-book mr-3 text-lg w-[22px]"></i>
+                    <span>Material PDF</span>
+                </li>
+            </a>
+            <a href="{{ route('admin.statics.index') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-circle-info mr-3 text-lg w-[22px]"></i>
+                    <span>Static Content</span>
+                </li>
+            </a>
+            
+            <a href="{{ route('admin.events.room-booking') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
+                    <span>Room Booking</span>
+                </li>
+            </a>
+            
+            <a href="{{ route('admin.events.admin-list') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-user-tie mr-3 text-lg w-[22px]"></i>
+                    <span>Admin List</span>
+                </li>
+            </a>
+            <hr>
+        </ul>
+
+        {{-- MODIFIED: Show profile info only if logged in --}}
+        @auth
+            {{-- Profile --}}
+            <div class="m-3 px-3 flex align-center justify-left mt-12">
+                <img src="{{ asset('assets/icons/profile.png') }}" alt="profile_icon"
+                    class="h-[15px] object-contain my-auto mr-4">
+                <div class="flex flex-col my-auto mr-4">
+                    <p>{{ auth()->user()->name }}</p>
+                </div>
+            </div>
+
+            {{-- Logout --}}
+            <div class="mt-0 m-3 p-3 hover:bg-rose-500 rounded-lg transition text-red-500 hover:text-white">
+                <form action="{{ route('admin.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="text-md">
+                        <div class="flex flex-row items-center rounded-lg transition">
+                            <i class="fa-solid fa-arrow-right-from-bracket mr-3 text-lg w-[22px]"></i>
+                            <span class="font-bold">Log Out</span>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        @endauth
+        
+        {{-- MODIFIED: Show login button if they are a guest --}}
+        @guest
+            <div class="mt-12 m-3">
+                <a href="#" class="text-md">
+                    <div class="p-3 hover:bg-sky-500 rounded-lg transition text-sky-500 hover:text-white">
+                        <div class="flex flex-row items-center rounded-lg transition">
+                            <i class="fa-solid fa-arrow-right-to-bracket mr-3 text-lg w-[22px]"></i>
+                            <span class="font-bold">Log In</span>
+                        </div>
+                    </div>
                 </a>
-            @endif
-        @endforeach
-
-        <div class="border-t my-4"></div>
-
-        <div class="flex items-center mb-4">
-            <img src="{{ asset('assets/icons/profile.png') }}" class="h-[20px] mr-3">
-            <span>{{ auth()->user()->name ?? 'Admin' }}</span>
-        </div>
-
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button class="w-full flex items-center justify-center p-3 bg-red-50 hover:bg-rose-500 hover:text-white text-red-500 rounded-lg transition font-semibold">
-                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Log Out
-            </button>
-        </form>
+            </div>
+        @endguest
     </ul>
 </div>
 
@@ -108,8 +247,11 @@
 <script>
     $(document).ready(function() {
         $('#toggle').on('click', function() {
-            $('#smallNav').toggleClass('active');
-            $(this).find('.ham').toggleClass('active');
-        });
-    });
+            if ($('#smallNav').hasClass('active')) {
+                $('#smallNav').removeClass('active');
+            } else {
+                $('#smallNav').addClass('active');
+            }
+        })
+    })
 </script>
