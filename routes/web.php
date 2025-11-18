@@ -15,6 +15,7 @@ use App\Http\Controllers\CellCommunityController;
 use App\Http\Controllers\PrayerController;
 
 // Public facing route
+Route::get('/', [StaticPageController::class, 'main'])->name('main');
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
