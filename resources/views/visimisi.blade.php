@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Visi & Misi Gereja Kristus Pencipta</title>
-
-  <!-- === GOOGLE FONTS === -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
@@ -13,7 +16,7 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #f4f8f4;
+      background-color: white;
       color: #333;
       line-height: 1.6;
     }
@@ -22,76 +25,65 @@
       display: block;
       max-width: 100%;
     }
+    
+    /* Smooth animations */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .slide-in-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s ease; }
+    .slide-in-left.visible { opacity: 1; transform: translateX(0); }
+    .scale-in { opacity: 0; transform: scale(0.9); transition: all 0.6s ease; }
+    .scale-in.visible { opacity: 1; transform: scale(1); }
+    .hero-title { animation: heroSlide 1.2s ease-out; }
+    
+    @keyframes heroSlide {
+        0% { opacity: 0; transform: translateX(-100px); }
+        100% { opacity: 1; transform: translateX(0); }
+    }
 
-    /* === HEADER === */
-    header {
-      position: relative;
-      background: url("{{ asset('assets/streaming_background.png') }}") center/cover no-repeat;
-      height: 250px;
-      color: white;
+    /* === CONTAINER === */
+    .main-container {
+      max-width: 1280px;
+      margin: 2rem auto;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      border-radius: 15px;
-      overflow: hidden;
-      max-width: 900px;
-      margin: 20px auto;
+      gap: 2rem;
+      background-color: white;
     }
-
-    header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
+    
+    .content-wrapper {
+      padding: 4rem 2rem;
+      border-radius: 1rem;
+      background-color: #90B7BF;
     }
-
-    .top-bar {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 40px;
+    
+    .content-container {
+      max-width: 1280px;
+      margin: 0 auto;
     }
-
-    .logo {
-      height: 50px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-weight: 600;
-      transition: color 0.3s;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    nav a:hover {
-      color: #cfe9cf;
-    }
-
-    .header-title {
-      position: relative;
-      z-index: 2;
-      padding: 20px 40px;
-      font-size: 1.8rem;
+    
+    .section-title {
+      text-align: center;
+      font-size: 1.25rem;
       font-weight: 700;
-      text-align: left;
+      color: #122B1D;
+      margin-bottom: 3rem;
+      letter-spacing: 0.1em;
     }
 
     /* === SECTION BASE STYLE === */
     section {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 40px 30px;
-      border-radius: 15px;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      padding: 2rem 3rem;
+      margin-bottom: 2.5rem;
       box-sizing: border-box;
     }
 
     /* === VISI SECTION === */
     .visi-section {
-      background-color: #a7dca5;
+      background-color: white;
       text-align: center;
       color: #1a1a1a;
     }
@@ -148,13 +140,13 @@
 
     /* === MISI SECTION === */
     .misi {
-      background-color: #5b7b6b;
-      color: white;
+      background-color: white;
+      color: #333;
       text-align: center;
-      border-radius: 15px;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 60px 30px;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2.5rem;
+      padding: 2rem 3rem;
     }
 
     .misi-logo {
@@ -180,22 +172,24 @@
     }
 
     .misi-card {
-      background-color: #0f3022;
-      padding: 30px 20px;
-      border-radius: 10px;
+      background-color: #355E3B;
+      padding: 1.5rem 1.25rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       width: 180px;
       min-height: 150px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: transform 0.3s ease, background-color 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       font-family: 'Poppins', sans-serif;
+      color: white;
     }
 
     .misi-card:hover {
-      transform: translateY(-5px);
-      background-color: #184e34;
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
     .misi-icon {
       font-size: 2.2rem;
@@ -213,19 +207,20 @@
 
     /* === NILAI SECTION === */
     .nilai {
-      background-color: #dbeedb;
+      background-color: white;
       text-align: center;
-      padding: 0;
-      border-radius: 15px;
-      overflow: hidden;
+      padding: 2rem 3rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2.5rem;
       color: #355E3B;
     }
 
     .nilai-container {
       display: flex;
       align-items: stretch;
-      padding: 40px 30px;
-      background-color: #e5f1e5;
+      padding: 0;
+      background-color: transparent;
     }
 
     .nilai-kiri {
@@ -305,10 +300,10 @@
 .sejarah {
   background-color: #355E3B;
   color: white;
-  border-radius: 15px;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  max-width: 900px;
-  margin: 40px auto;
+  margin-bottom: 2.5rem;
   padding: 0;
 }
 
@@ -342,7 +337,7 @@
 .sejarah-right h2 {
   position: absolute;
   top: 24px;
-  right: 20px;
+  right: 0;
   margin: 0;
   z-index: 2;
   text-align: right;
@@ -359,14 +354,12 @@
 /* Gambar: menempel di kanan bawah, berada di bawah judul (z-index lebih rendah) */
 .sejarah-image {
   position: absolute;
-  bottom: 16px;
-  right: 20px;
-  width: 260px;
+  bottom: -40px;
+  right: -40px;
+  width: 230px;
   height: auto;
   object-fit: cover;
-  border-radius: 10px;
   z-index: 1;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
 }
 
 @media (max-width: 768px) {
@@ -403,97 +396,103 @@
 </head>
 
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="top-bar">
-      <img src="{{ asset('assets/logo.png') }}" alt="Logo Gereja" class="logo" />
-      <nav>
-        <a href="/">Home</a>
-        <a href="/events">Events</a>
-        <a href="/tentangkami">Tentang Kami</a>
-      </nav>
-    </div>
-    <div class="header-title">
-      Visi Misi Gereja Kristus Pencipta
-    </div>
-  </header>
+<div class="main-container">
+  @include('components.hero-section', ['title' => 'Visi Misi Gereja Kristus Pencipta'])
+  
+  <div class="content-wrapper fade-in">
+    <div class="content-container">
+      <h2 class="section-title slide-in-left">VISI & MISI GEREJA KRISTUS PENCIPTA</h2>
+      
+      <!-- VISI -->
+      <section class="visi-section scale-in">
+        <div class="w-16 h-16 bg-[#557e72] rounded-full mx-auto mb-6 flex items-center justify-center">
+          <i class="fas fa-eye text-white text-2xl"></i>
+        </div>
+        <h2 class="visi-title">VISI KAMI</h2>
+        <h3 class="visi-subtitle">Murid Kristus yang Berdoa dan Memulihkan</h3>
+        <p class="visi-description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tristique ut libero nec fermentum.
+        </p>
+        <div class="visi-gallery">
+          <img src="{{ asset('assets/visi_1.JPG') }}" alt="Visi 1" class="scale-in" data-delay="100">
+          <img src="{{ asset('assets/visi_2.JPG') }}" alt="Visi 2" class="scale-in" data-delay="200">
+          <img src="{{ asset('assets/visi_3.JPG') }}" alt="Visi 3" class="scale-in" data-delay="300">
+          <img src="{{ asset('assets/visi_4.jpg') }}" alt="Visi 4" class="scale-in" data-delay="400">
+        </div>
+      </section>
 
-  <!-- VISI -->
-  <section class="visi-section">
-    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="visi-logo">
-    <h2 class="visi-title">VISI KAMI</h2>
-    <h3 class="visi-subtitle">Murid Kristus yang Berdoa dan Memulihkan</h3>
-    <p class="visi-description">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tristique ut libero nec fermentum.
-    </p>
-    <div class="visi-gallery">
-      <img src="https://source.unsplash.com/400x300/?prayer" alt="Visi 1">
-      <img src="https://source.unsplash.com/400x300/?bible" alt="Visi 2">
-      <img src="https://source.unsplash.com/400x300/?community" alt="Visi 3">
-      <img src="https://source.unsplash.com/400x300/?worship" alt="Visi 4">
-    </div>
-  </section>
+      <!-- MISI -->
+      <section class="misi fade-in">
+        <div class="w-16 h-16 bg-[#91b7c0] rounded-full mx-auto mb-6 flex items-center justify-center">
+          <i class="fas fa-bullseye text-white text-2xl"></i>
+        </div>
+        <h2 class="misi-title">MISI KAMI</h2>
+        <div class="misi-container">
+          <div class="misi-card scale-in" data-delay="100">
+            <div class="w-12 h-12 bg-white rounded-full mx-auto mb-4 flex items-center justify-center">
+              <i class="fas fa-cross text-[#355E3B] text-xl"></i>
+            </div>
+            <h3>Misi Layanan Pemulihan</h3>
+          </div>
+          <div class="misi-card scale-in" data-delay="200">
+            <div class="w-12 h-12 bg-white rounded-full mx-auto mb-4 flex items-center justify-center">
+              <i class="fas fa-praying-hands text-[#355E3B] text-xl"></i>
+            </div>
+            <h3>Misi Kegerakan Doa</h3>
+          </div>
+          <div class="misi-card scale-in" data-delay="300">
+            <div class="w-12 h-12 bg-white rounded-full mx-auto mb-4 flex items-center justify-center">
+              <i class="fas fa-globe text-[#355E3B] text-xl"></i>
+            </div>
+            <h3>Misi Memperlengkapi Tubuh Kristus di Indonesia dan Negara Lain</h3>
+          </div>
+          <div class="misi-card scale-in" data-delay="400">
+            <div class="w-12 h-12 bg-white rounded-full mx-auto mb-4 flex items-center justify-center">
+              <i class="fas fa-hands-helping text-[#355E3B] text-xl"></i>
+            </div>
+            <h3>Misi Pemuridan</h3>
+          </div>
+        </div>
+      </section>
 
-  <!-- MISI -->
-  <section class="misi">
-    <img src="{{ asset('assets/logo.png') }}" alt="Logo Misi" class="misi-logo" />
-    <h2 class="misi-title">MISI KAMI</h2>
-    <div class="misi-container">
-      <div class="misi-card">
-        <div class="misi-icon">✝️</div>
-        <h3>Misi Layanan Pemulihan</h3>
-      </div>
-      <div class="misi-card">
-        <div class="misi-icon">🙏</div>
-        <h3>Misi Kegerakan Doa</h3>
-      </div>
-      <div class="misi-card">
-        <div class="misi-icon">🌍</div>
-        <h3>Misi Memperlengkapi Tubuh Kristus di Indonesia dan Negara Lain</h3>
-      </div>
-      <div class="misi-card">
-        <div class="misi-icon">🤝</div>
-        <h3>Misi Pemuridan</h3>
-      </div>
-    </div>
-  </section>
+      <!-- NILAI -->
+      <section class="nilai slide-in-left">
+        <div class="nilai-container">
+          <div class="nilai-kiri">
+            <div class="w-16 h-16 bg-[#557e72] rounded-full mx-auto mb-6 flex items-center justify-center">
+              <i class="fas fa-heart text-white text-2xl"></i>
+            </div>
+            <h2>Nilai-nilai Gereja Kristus Pencipta</h2>
+          </div>
 
-  <!-- NILAI -->
-  <section class="nilai">
-    <div class="nilai-container">
-      <div class="nilai-kiri">
-        <img src="{{ asset('assets/logo.png') }}" alt="Logo Gereja" />
-        <h2>Nilai-nilai Gereja Kristus Pencipta</h2>
-      </div>
-
-      <div class="nilai-kanan">
-        <div class="nilai-card">
-          <div class="nilai-card-icon">✝️</div>
-          <span class="nilai-card-text">Nilai Intim dengan Tuhan</span>
+          <div class="nilai-kanan">
+            <div class="nilai-card">
+              <div class="nilai-card-icon"><i class="fas fa-cross"></i></div>
+              <span class="nilai-card-text">Nilai Intim dengan Tuhan</span>
+            </div>
+            <div class="nilai-card">
+              <div class="nilai-card-icon"><i class="fas fa-shield-alt"></i></div>
+              <span class="nilai-card-text">Nilai Integritas</span>
+            </div>
+            <div class="nilai-card">
+              <div class="nilai-card-icon"><i class="fas fa-dove"></i></div>
+              <span class="nilai-card-text">Nilai Kekudusan</span>
+            </div>
+            <div class="nilai-card">
+              <div class="nilai-card-icon"><i class="fas fa-hands"></i></div>
+              <span class="nilai-card-text">Nilai Kehambaan</span>
+            </div>
+            <div class="nilai-card">
+              <div class="nilai-card-icon"><i class="fas fa-users"></i></div>
+              <span class="nilai-card-text">Nilai Kekeluargaan</span>
+            </div>
+            <div class="nilai-card">
+              <div class="nilai-card-icon"><i class="fas fa-heart"></i></div>
+              <span class="nilai-card-text">Nilai Mengasihi Jiwa-jiwa</span>
+            </div>
+          </div>
         </div>
-        <div class="nilai-card">
-          <div class="nilai-card-icon">👍</div>
-          <span class="nilai-card-text">Nilai Integritas</span>
-        </div>
-        <div class="nilai-card">
-          <div class="nilai-card-icon">🕊️</div>
-          <span class="nilai-card-text">Nilai Kekudusan</span>
-        </div>
-        <div class="nilai-card">
-          <div class="nilai-card-icon">🙌</div>
-          <span class="nilai-card-text">Nilai Kehambaan</span>
-        </div>
-        <div class="nilai-card">
-          <div class="nilai-card-icon">🌲</div>
-          <span class="nilai-card-text">Nilai Kekeluargaan</span>
-        </div>
-        <div class="nilai-card">
-          <div class="nilai-card-icon">💚</div>
-          <span class="nilai-card-text">Nilai Mengasihi Jiwa-jiwa</span>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
   <!-- SEJARAH -->
 <section class="sejarah">
@@ -527,6 +526,36 @@
 
   </div>
 </section>
+
+    </div>
+  </div>
+</div>
+
+@include('base.footer')
+
+<script>
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = entry.target.dataset.delay || 0;
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, delay);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .scale-in');
+        animatedElements.forEach(el => observer.observe(el));
+    });
+</script>
 
 </body>
 </html>

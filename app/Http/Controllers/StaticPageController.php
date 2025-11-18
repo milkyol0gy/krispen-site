@@ -14,6 +14,11 @@ class StaticPageController extends Controller
         return view('static.static', compact('statics'));
     }
 
+    public function visiMisi()
+    {
+        return view('visimisi');
+    }
+
     // Admin index
     public function index(Request $request)
     {

@@ -31,6 +31,8 @@ Route::get('/cell-community', [CellCommunityController::class, 'index'])->name('
 Route::get('/prayer-request', [PrayerController::class, 'index'])->name('prayer.request');
 Route::post('/prayer-request', [PrayerController::class, 'store'])->name('prayer.store');
 
+Route::get('/visimisi', [StaticPageController::class, 'visiMisi'])->name('visimisi');
+
 Route::get('/events/{id}/register', [EventRegistController::class, 'create'])->name('events.register');
 Route::post('/events/{id}/register', [EventRegistController::class, 'store'])->name('events.register.store');
 Route::get('/events/{id}/register/success', [EventRegistController::class, 'success'])->name('events.register.success');

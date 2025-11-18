@@ -11,7 +11,7 @@
             <nav class="hidden md:flex space-x-8">
                 <a href="{{ url('/') }}" class="text-white hover:text-gray-300 font-medium transition-colors">Home</a>
                 <a href="{{ route('events.index') }}" class="text-white hover:text-gray-300 font-medium transition-colors">Events</a>
-                <a href="#" class="text-white hover:text-gray-300 font-medium transition-colors">Tentang Kami</a>
+                <a href="{{ route('visimisi') }}" class="text-white hover:text-gray-300 font-medium transition-colors">Tentang Kami</a>
             </nav>
 
             <!-- Hamburger Button (All Screen Sizes) -->
@@ -73,7 +73,7 @@
                     <i class="fas fa-calendar w-5"></i>
                     <span>Events</span>
                 </a>
-                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                <a href="{{ route('visimisi') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
                     <i class="fas fa-info-circle w-5"></i>
                     <span>Tentang Kami</span>
                 </a>
