@@ -25,8 +25,6 @@ class StoreMaterialRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'url' => 'required|url',
-            'published_date' => 'required|date',
-            'description' => 'nullable|string',
         ];
     }
 }

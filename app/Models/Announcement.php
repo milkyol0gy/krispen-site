@@ -14,8 +14,9 @@ class Announcement extends Model
     protected $fillable = [
         'user_id',
         'headline',
-        'upload_date',
         'details',
+        'start_air',
+        'end_air',
     ];
 
     public function user()

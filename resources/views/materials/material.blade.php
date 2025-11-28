@@ -58,18 +58,10 @@
 
             <div class="mb-8 max-w-2xl mx-auto flex flex-col md:flex-row gap-4 scale-in">
                 <div class="relative flex-grow">
-                    <input type="text" x-model.debounce.300ms="searchQuery" placeholder="Cari berdasarkan judul atau deskripsi..."
+                    <input type="text" x-model.debounce.300ms="searchQuery" placeholder="Cari berdasarkan judul..."
                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                         <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
-                    </div>
-                </div>
-
-                <div class="relative cursor-pointer" @click="$refs.dateInput.showPicker()">
-                    <input type="date" x-model="searchDate" x-ref="dateInput"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pointer-events-none">
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                        <i class="fa-solid fa-calendar-day text-gray-400"></i>
                     </div>
                 </div>
             </div>
@@ -81,19 +73,16 @@
                         data-delay="{{ $loop->index * 100 }}"
                         data-material-row
                         data-title="{{ $material->title }}"
-                        data-description="{{ $material->description }}"
-                        data-date="{{ $material->published_date ? $material->published_date->format('Y-m-d') : '' }}"
-                        x-show="(searchQuery === '' || $el.dataset.title.toLowerCase().includes(searchQuery.toLowerCase()) || $el.dataset.description.toLowerCase().includes(searchQuery.toLowerCase())) && (searchDate === '' || $el.dataset.date === searchDate)">
+                        x-show="searchQuery === '' || $el.dataset.title.toLowerCase().includes(searchQuery.toLowerCase())">
                         
                         <div class="h-56 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
-                            <i class="fa-solid fa-file-pdf text-white text-6xl"></i>
+                            <i class="fa-solid fa-external-link-alt text-white text-6xl"></i>
                         </div>
 
                         <div class="p-6 bg-white">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors duration-300">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
                                 {{ $material->title }}
                             </h3>
-                            <p class="text-sm text-gray-600 mb-4">{{ Str::limit($material->description, 100) }}</p>
                             
                             <div class="flex items-center text-gray-600 text-sm">
                                 <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +91,7 @@
                                     </path>
                                 </svg>
                                 <span class="font-medium">
-                                    {{ $material->published_date ? $material->published_date->format('d M Y') : 'N/A' }}
+                                    {{ $material->created_at->format('d M Y') }}
                                 </span>
                             </div>
                         </div>

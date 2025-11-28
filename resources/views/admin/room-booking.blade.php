@@ -15,7 +15,7 @@
         </div>
 
         <div class="mb-6">
-            <form method="GET" action="{{ route('admin.events.room-booking') }}" class="flex gap-4 items-end">
+            <form method="GET" action="{{ route('admin.room-booking') }}" class="flex gap-4 items-end">
                 <div class="flex-1 max-w-md">
                     <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Search Bookings</label>
                     <input type="text" id="search" name="search" value="{{ $search ?? '' }}"

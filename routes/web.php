@@ -56,14 +56,17 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
         Route::get('/{id}/edit', [EventController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [EventController::class, 'update'])->name('update');
         Route::delete('/{id}/delete', [EventController::class, 'destroy'])->name('destroy');
-        Route::get('/room-booking', [EventController::class, 'show_room_booking'])->name('room-booking');
-        Route::get('/prayer-list', [EventController::class, 'show_prayer_list'])->name('prayer-list');
+        Route::get('/{id}/export-participants', [EventController::class, 'exportParticipants'])->name('export-participants');
         Route::get('/admin-list', [AdminController::class, 'index'])->name('admin-list');
         Route::post('/admin-store', [AdminController::class, 'store'])->name('admin-store');
         Route::put('/admin-list/{id}/update', [AdminController::class, 'update'])->name('admin-update');
         Route::delete('/admin-list/{id}/delete', [AdminController::class, 'destroy'])->name('admin-delete');
     });
-
+    
+    Route::get('/room-booking', [EventController::class, 'show_room_booking'])->name('room-booking');
+    Route::get('/prayer-list', [EventController::class, 'show_prayer_list'])->name('prayer-list');
+    Route::get('/prayer-list-export', [EventController::class, 'exportPrayerList'])->name('prayer-list-export');
+        
     // Route names will now be materials.index, materials.create, etc. (NO 'admin.' prefix)
     Route::prefix('materials')->name('materials.')->group(function () {
         Route::get('/', [MaterialController::class, 'index'])->name('index');

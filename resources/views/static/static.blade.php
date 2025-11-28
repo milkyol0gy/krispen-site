@@ -213,7 +213,7 @@
                                 {{ $announcement->details }}
                             </p>
                             <p class="text-xs text-white/70">
-                                {{ $announcement->upload_date ? \Carbon\Carbon::parse($announcement->upload_date)->format('d M Y') : \Carbon\Carbon::parse($announcement->created_at)->format('d M Y') }}
+                                {{ $announcement->start_air ? \Carbon\Carbon::parse($announcement->start_air)->format('d M Y H:i') : \Carbon\Carbon::parse($announcement->created_at)->format('d M Y') }}
                             </p>
                         </div>
                     </div>

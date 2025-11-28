@@ -33,16 +33,30 @@
                         @enderror
                     </div>
 
-                    {{-- Upload Date --}}
+                    {{-- Start Air Date --}}
                     <div>
-                        <label for="upload_date" class="block text-sm font-medium text-gray-700 mb-2">
-                            Upload Date
+                        <label for="start_air" class="block text-sm font-medium text-gray-700 mb-2">
+                            Start Air Date
                         </label>
-                        <input type="date" id="upload_date" name="upload_date"
-                            value="{{ old('upload_date', $announcement->upload_date ? \Carbon\Carbon::parse($announcement->upload_date)->format('Y-m-d') : '') }}"
+                        <input type="datetime-local" id="start_air" name="start_air"
+                            value="{{ old('start_air', $announcement->start_air ? \Carbon\Carbon::parse($announcement->start_air)->format('Y-m-d\TH:i') : '') }}"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md 
                                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                        @error('upload_date')
+                        @error('start_air')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- End Air Date --}}
+                    <div>
+                        <label for="end_air" class="block text-sm font-medium text-gray-700 mb-2">
+                            End Air Date
+                        </label>
+                        <input type="datetime-local" id="end_air" name="end_air"
+                            value="{{ old('end_air', $announcement->end_air ? \Carbon\Carbon::parse($announcement->end_air)->format('Y-m-d\TH:i') : '') }}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md 
+                                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                        @error('end_air')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>

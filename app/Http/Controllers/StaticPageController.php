@@ -12,7 +12,11 @@ class StaticPageController extends Controller
     public function publicIndex()
     {
         $statics = StaticPage::latest()->take(3)->get();
-        $announcements = Announcement::latest()->take(3)->get();
+        $announcements = Announcement::where('start_air', '<=', now())
+                                    ->where('end_air', '>=', now())
+                                    ->latest('start_air')
+                                    ->take(3)
+                                    ->get();
         return view('static.static', compact('statics', 'announcements'));
     }
 
@@ -23,7 +27,11 @@ class StaticPageController extends Controller
     public function main()
     {
         $statics = StaticPage::latest()->take(3)->get();
-        $announcements = Announcement::latest()->take(3)->get();
+        $announcements = Announcement::where('start_air', '<=', now())
+                                    ->where('end_air', '>=', now())
+                                    ->latest('start_air')
+                                    ->take(3)
+                                    ->get();
         return view('static.static', compact('statics', 'announcements'));
     }
 
