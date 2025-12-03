@@ -24,7 +24,7 @@
                 <div class="flex-1 max-w-md">
                     <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Search Materials</label>
                     <input type="text" id="search" name="search" value="{{ request('search') }}"
-                        placeholder="Search by title or description..."
+                        placeholder="Search by title..."
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <button type="submit"
@@ -45,8 +45,8 @@
                         <tr class="bg-gray-100 text-left text-gray-700 uppercase text-xs sm:text-sm">
                             <th class="py-3 px-2 sm:px-4 border-b">#</th>
                             <th class="py-3 px-2 sm:px-4 border-b">Title</th>
-                            <th class="py-3 px-2 sm:px-4 border-b hidden md:table-cell">Description</th>
-                            <th class="py-3 px-2 sm:px-4 border-b hidden sm:table-cell">Date</th>
+                            <th class="py-3 px-2 sm:px-4 border-b hidden md:table-cell">URL</th>
+                            <th class="py-3 px-2 sm:px-4 border-b hidden sm:table-cell">Created</th>
                             <th class="py-3 px-2 sm:px-4 border-b text-center">Action</th>
                         </tr>
                     </thead>
@@ -56,20 +56,22 @@
                                 <td class="py-3 px-2 sm:px-4 text-sm">{{ $materials->firstItem() + $index }}</td>
                                 <td class="py-3 px-2 sm:px-4">
                                     <div class="font-semibold text-gray-900 text-sm sm:text-base">{{ $material->title }}</div>
-                                    <div class="text-xs text-gray-600 md:hidden">{{ Str::limit($material->description, 40) }}</div>
-                                    <div class="text-xs text-gray-500 sm:hidden">{{ $material->published_date ? $material->published_date->format('d M Y') : 'N/A' }}</div>
+                                    <div class="text-xs text-gray-600 md:hidden">{{ Str::limit($material->url, 40) }}</div>
+                                    <div class="text-xs text-gray-500 sm:hidden">{{ $material->created_at->format('d M Y') }}</div>
                                 </td>
                                 <td class="py-3 px-2 sm:px-4 hidden md:table-cell">
-                                    <div class="text-sm text-gray-600">{{ Str::limit($material->description, 80) }}</div>
+                                    <div class="text-sm text-blue-600">
+                                        <a href="{{ $material->url }}" target="_blank" class="hover:underline">{{ Str::limit($material->url, 50) }}</a>
+                                    </div>
                                 </td>
                                 <td class="py-3 px-2 sm:px-4 hidden sm:table-cell">
                                     <div class="text-sm text-gray-600">
-                                        {{ $material->published_date ? $material->published_date->format('d M Y') : 'N/A' }}
+                                        {{ $material->created_at->format('d M Y') }}
                                     </div>
                                 </td>
                                 <td class="py-3 px-2 sm:px-4 text-center">
                                     <div class="flex flex-col sm:flex-row gap-1 sm:gap-2 sm:justify-center">
-                                        <button @click="openEditModal({{ $material->id }}, '{{ addslashes($material->title) }}', '{{ addslashes($material->description) }}', '{{ $material->pdf_link }}', '{{ $material->published_date ? $material->published_date->format('Y-m-d') : '' }}')"
+                                        <button @click="openEditModal({{ $material->id }}, '{{ addslashes($material->title) }}', '{{ addslashes($material->url) }}')"
                                             class="px-2 sm:px-3 py-1.5 bg-yellow-400 text-white text-xs sm:text-sm rounded hover:bg-yellow-500 transition">
                                             <i class="fa-solid fa-pen-to-square"></i> <span class="hidden sm:inline">Edit</span>
                                         </button>
@@ -110,18 +112,8 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <textarea name="description" rows="3"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">PDF Link</label>
-                        <input type="url" name="pdf_link" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Published Date</label>
-                        <input type="date" name="published_date"
+                        <label class="block text-sm font-medium text-gray-700 mb-2">URL</label>
+                        <input type="url" name="url" required
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div class="flex justify-end space-x-2">
@@ -151,18 +143,8 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <textarea name="description" x-model="editDescription" rows="3"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">PDF Link</label>
-                        <input type="url" name="pdf_link" x-model="editPdfLink" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Published Date</label>
-                        <input type="date" name="published_date" x-model="editPublishedDate"
+                        <label class="block text-sm font-medium text-gray-700 mb-2">URL</label>
+                        <input type="url" name="url" x-model="editUrl" required
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div class="flex justify-end space-x-2">
@@ -210,9 +192,7 @@
                 showDeleteModal: false,
                 editId: null,
                 editTitle: '',
-                editDescription: '',
-                editPdfLink: '',
-                editPublishedDate: '',
+                editUrl: '',
                 deleteId: null,
                 deleteTitle: '',
                 
@@ -220,12 +200,10 @@
                     this.showCreateModal = true;
                 },
                 
-                openEditModal(id, title, description, pdfLink, publishedDate) {
+                openEditModal(id, title, url) {
                     this.editId = id;
                     this.editTitle = title;
-                    this.editDescription = description;
-                    this.editPdfLink = pdfLink;
-                    this.editPublishedDate = publishedDate;
+                    this.editUrl = url;
                     this.showEditModal = true;
                 },
                 

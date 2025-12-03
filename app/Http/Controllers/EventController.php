@@ -8,6 +8,7 @@ use App\Models\Prayer;
 use App\Models\RoomBook;
 use Illuminate\Support\Facades\Storage;
 
+
 class EventController extends Controller
 {
     public function index()
@@ -172,5 +173,85 @@ class EventController extends Controller
         $event->delete();
 
         return redirect()->route('admin.events.index')->with('success', 'Event berhasil dihapus!');
+    }
+
+    public function exportParticipants($id)
+    {
+        $event = Event::findOrFail($id);
+        $participants = $event->eventRegists;
+        
+        $filename = 'participants_' . str_replace(' ', '_', $event->title) . '_' . date('Y-m-d') . '.csv';
+        
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+        
+        $callback = function() use ($participants, $event) {
+            $file = fopen('php://output', 'w');
+            
+            // Add CSV headers
+            fputcsv($file, ['No', 'Name', 'Phone', 'Event Title', 'Registration Date']);
+            
+            // Add data rows
+            $counter = 1;
+            foreach ($participants as $participant) {
+                fputcsv($file, [
+                    $counter++,
+                    $participant->attandee_name,
+                    $participant->attandee_phone ?? 'N/A',
+                    $event->title,
+                    $participant->created_at->format('d/m/Y H:i')
+                ]);
+            }
+            
+            fclose($file);
+        };
+        
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function exportPrayerList(Request $request)
+    {
+        $query = Prayer::query();
+        
+        // Apply date range filter
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+        
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+        
+        $prayers = $query->orderBy('created_at', 'desc')->get();
+        
+        $filename = 'prayer_list_' . date('Y-m-d') . '.csv';
+        
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+        
+        $callback = function() use ($prayers) {
+            $file = fopen('php://output', 'w');
+            
+            // Add CSV headers
+            fputcsv($file, ['No', 'Prayer Request', 'Submit Date']);
+            
+            // Add data rows
+            $counter = 1;
+            foreach ($prayers as $prayer) {
+                fputcsv($file, [
+                    $counter++,
+                    $prayer->description,
+                    $prayer->created_at->format('d/m/Y H:i')
+                ]);
+            }
+            
+            fclose($file);
+        };
+        
+        return response()->stream($callback, 200, $headers);
     }
 }

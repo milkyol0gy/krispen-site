@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StaticPage;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 
 class StaticPageController extends Controller
@@ -11,7 +12,27 @@ class StaticPageController extends Controller
     public function publicIndex()
     {
         $statics = StaticPage::latest()->take(3)->get();
-        return view('static.static', compact('statics'));
+        $announcements = Announcement::where('start_air', '<=', now())
+                                    ->where('end_air', '>=', now())
+                                    ->latest('start_air')
+                                    ->take(3)
+                                    ->get();
+        return view('static.static', compact('statics', 'announcements'));
+    }
+
+    public function visiMisi()
+    {
+        return view('visimisi');
+    }
+    public function main()
+    {
+        $statics = StaticPage::latest()->take(3)->get();
+        $announcements = Announcement::where('start_air', '<=', now())
+                                    ->where('end_air', '>=', now())
+                                    ->latest('start_air')
+                                    ->take(3)
+                                    ->get();
+        return view('static.static', compact('statics', 'announcements'));
     }
 
     // Admin index

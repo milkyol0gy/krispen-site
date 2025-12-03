@@ -10,8 +10,12 @@ use App\Http\Controllers\EventRegistController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RoomBookController;
+use App\Http\Controllers\PersembahanController;
+use App\Http\Controllers\CellCommunityController;
+use App\Http\Controllers\PrayerController;
 
 // Public facing route
+Route::get('/', [StaticPageController::class, 'main'])->name('main');
 Route::get('/materialview', [MaterialController::class, 'publicIndex'])->name('materials.public');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
@@ -20,6 +24,15 @@ Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.public
 
 Route::get('/room-book', [RoomBookController::class, 'index'])->name('roombook.public');
 Route::post('/room-book-store', [RoomBookController::class, 'store'])->name('roombook.store');
+
+Route::get('/persembahan', [PersembahanController::class, 'persembahan'])->name('persembahan');
+
+Route::get('/cell-community', [CellCommunityController::class, 'index'])->name('cell-community.public');
+
+Route::get('/prayer-request', [PrayerController::class, 'index'])->name('prayer.request');
+Route::post('/prayer-request', [PrayerController::class, 'store'])->name('prayer.store');
+
+Route::get('/visimisi', [StaticPageController::class, 'visiMisi'])->name('visimisi');
 
 Route::get('/events/{id}/register', [EventRegistController::class, 'create'])->name('events.register');
 Route::post('/events/{id}/register', [EventRegistController::class, 'store'])->name('events.register.store');
@@ -31,7 +44,7 @@ Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallbac
 
 // --- ADMIN ROUTES (Manual Definition) ---
 Route::prefix('admin')->name('admin.')->group(function () {
-    
+
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -43,14 +56,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/{id}/edit', [EventController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [EventController::class, 'update'])->name('update');
         Route::delete('/{id}/delete', [EventController::class, 'destroy'])->name('destroy');
-        Route::get('/room-booking', [EventController::class, 'show_room_booking'])->name('room-booking');
-        Route::get('/prayer-list', [EventController::class, 'show_prayer_list'])->name('prayer-list');
+        Route::get('/{id}/export-participants', [EventController::class, 'exportParticipants'])->name('export-participants');
         Route::get('/admin-list', [AdminController::class, 'index'])->name('admin-list');
         Route::post('/admin-store', [AdminController::class, 'store'])->name('admin-store');
         Route::put('/admin-list/{id}/update', [AdminController::class, 'update'])->name('admin-update');
         Route::delete('/admin-list/{id}/delete', [AdminController::class, 'destroy'])->name('admin-delete');
     });
-
+    
+    Route::get('/room-booking', [EventController::class, 'show_room_booking'])->name('room-booking');
+    Route::get('/prayer-list', [EventController::class, 'show_prayer_list'])->name('prayer-list');
+    Route::get('/prayer-list-export', [EventController::class, 'exportPrayerList'])->name('prayer-list-export');
+        
     // Route names will now be materials.index, materials.create, etc. (NO 'admin.' prefix)
     Route::prefix('materials')->name('materials.')->group(function () {
         Route::get('/', [MaterialController::class, 'index'])->name('index');
@@ -88,7 +104,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/{id}/update', [AnnouncementController::class, 'update'])->name('update');
         Route::delete('/{id}/delete', [AnnouncementController::class, 'destroy'])->name('destroy');
     });
-    // Route::prefix('admin_list')->name('admin_list.')->group(function () {    
+
+    Route::prefix('cell-communities')->name('cell-communities.')->group(function () {
+        Route::get('/', [CellCommunityController::class, 'adminIndex'])->name('index');
+        Route::post('/store', [CellCommunityController::class, 'store'])->name('store');
+        Route::put('/{id}/update', [CellCommunityController::class, 'update'])->name('update');
+        Route::delete('/{id}/delete', [CellCommunityController::class, 'destroy'])->name('destroy');
+    });
+    // Route::prefix('admin_list')->name('admin_list.')->group(function () {
     //     Route::get('/', [AuthController::class, 'show_admin_list'])->name('index');
     // });
 });

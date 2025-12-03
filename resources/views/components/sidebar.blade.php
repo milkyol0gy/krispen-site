@@ -53,7 +53,7 @@
                     </li>
                 </a>
                 
-                <a href="{{ route('admin.events.prayer-list') }}" class="text-md">
+                <a href="{{ route('admin.prayer-list') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-hands-praying mr-3 text-lg w-[22px]"></i>
                         <span>Prayer List</span>
@@ -85,7 +85,14 @@
                     </li>
                 </a>
                 
-                <a href="{{ route('admin.events.room-booking') }}" class="text-md">
+                <a href="{{ route('admin.cell-communities.index') }}" class="text-md">
+                    <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fa-solid fa-users mr-3 text-lg w-[22px]"></i>
+                        <span>Cell Communities</span>
+                    </li>
+                </a>
+                
+                <a href="{{ route('admin.room-booking') }}" class="text-md">
                     <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                         <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
                         <span>Room Booking</span>
@@ -155,7 +162,7 @@
                     <span>Event</span>
                 </li>
             </a>
-            <a href="{{ route('admin.events.prayer-list') }}" class="text-md">
+            <a href="{{ route('admin.prayer-list') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-hands-praying mr-3 text-lg w-[22px]"></i>
                     <span>Pray List</span>
@@ -186,7 +193,14 @@
                 </li>
             </a>
             
-            <a href="{{ route('admin.events.room-booking') }}" class="text-md">
+            <a href="{{ route('admin.cell-communities.index') }}" class="text-md">
+                <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
+                    <i class="fa-solid fa-users mr-3 text-lg w-[22px]"></i>
+                    <span>Cell Communities</span>
+                </li>
+            </a>
+            
+            <a href="{{ route('admin.room-booking') }}" class="text-md">
                 <li class="flex flex-row items-center p-2 px-3 my-2 hover:bg-gray-200 rounded-lg transition">
                     <i class="fa-solid fa-door-open mr-3 text-lg w-[22px]"></i>
                     <span>Room Booking</span>

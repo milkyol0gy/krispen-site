@@ -5,10 +5,14 @@
 
         <div class="flex items-center justify-between mb-8">
             <h1 class="text-3xl font-bold text-gray-800">🙏 Prayer List Management</h1>
+            <button onclick="toggleExportModal()" class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition">
+                <i class="fas fa-file-csv"></i>
+                Export CSV
+            </button>
         </div>
 
         <div class="mb-6">
-            <form method="GET" action="{{ route('admin.events.prayer-list') }}" class="flex gap-4 items-end">
+            <form method="GET" action="{{ route('admin.prayer-list') }}" class="flex gap-4 items-end">
                 <div class="flex-1 max-w-md">
                     <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Search Prayers</label>
                     <input type="text" id="search" name="search" value="{{ $search ?? '' }}"
@@ -67,4 +71,39 @@
         @endif
         
     </div>
+
+    <!-- Export Modal -->
+    <div id="exportModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 class="text-lg font-semibold mb-4">Export Prayer List</h3>
+            <form action="{{ route('admin.prayer-list-export') }}" method="GET">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                    <input type="date" name="start_date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+                    <input type="date" name="end_date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="text-sm text-gray-600 mb-4">
+                    Leave dates empty to export all prayer requests
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" onclick="toggleExportModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        Export
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleExportModal() {
+            const modal = document.getElementById('exportModal');
+            modal.classList.toggle('hidden');
+        }
+    </script>
 @endsection

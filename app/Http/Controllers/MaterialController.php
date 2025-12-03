@@ -14,7 +14,7 @@ class MaterialController extends Controller
     public function publicIndex()
     {
         // FIXED: The public page should use server-side pagination.
-        $materials = Material::latest('published_date')->paginate(12);
+        $materials = Material::latest('created_at')->paginate(12);
         return view('materials.material', compact('materials'));
     }
 
@@ -27,13 +27,10 @@ class MaterialController extends Controller
         
         if ($request->filled('search')) {
             $search = $request->get('search');
-            $query->where(function($q) use ($search) {
-                $q->where('title', 'LIKE', "%{$search}%")
-                  ->orWhere('description', 'LIKE', "%{$search}%");
-            });
+            $query->where('title', 'LIKE', "%{$search}%");
         }
         
-        $materials = $query->latest('published_date')->paginate(10);
+        $materials = $query->latest('created_at')->paginate(10);
         $search = $request->get('search');
         
         return view('materials.materialadmin', compact('materials', 'search'));

@@ -164,9 +164,18 @@
                 <div class="bg-white border border-gray-200 rounded-lg p-6">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-semibold text-gray-800">👥 Registered Participants</h3>
-                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-                            {{ $event->eventRegists->count() }} Total Registered
-                        </span>
+                        <div class="flex items-center gap-3">
+                            @if($event->eventRegists->count() > 0)
+                                <a href="{{ route('admin.events.export-participants', $event->id) }}"
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition">
+                                    <i class="fas fa-file-csv"></i>
+                                    Export CSV
+                                </a>
+                            @endif
+                            <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                                {{ $event->eventRegists->count() }} Total Registered
+                            </span>
+                        </div>
                     </div>
 
                     <div class="mb-4">
