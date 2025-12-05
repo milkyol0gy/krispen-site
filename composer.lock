@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "6a26da48abf7cacc6538e89e614b4689",
-=======
     "content-hash": "0d1cd5f783843778e8dcb6b518302de5",
->>>>>>> d6646d9 (Upload Laravel project to danil branch)
     "packages": [
         {
             "name": "brick/math",

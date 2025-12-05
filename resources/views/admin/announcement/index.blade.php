@@ -12,11 +12,11 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-4">
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">📢 Announcement Management</h1>
 
-            <button @click="openCreateModal()"
-                class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition w-full sm:w-auto">
+            <a href="{{ route('admin.announcement.create') }}"
+               class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition w-full sm:w-auto">
                 <span class="text-xl">＋</span>
                 Add New Announcement
-            </button>
+            </a>
         </div>
 
         <div class="mb-6">
@@ -69,10 +69,11 @@
                                 </td>
                                 <td class="py-3 px-2 sm:px-4 text-center">
                                     <div class="flex flex-col sm:flex-row gap-1 sm:gap-2 sm:justify-center">
-                                        <button @click="openEditModal({{ $announcement->id }}, '{{ addslashes($announcement->headline) }}', '{{ addslashes($announcement->details) }}', '{{ $announcement->upload_date }}')"
-                                            class="px-2 sm:px-3 py-1.5 bg-yellow-400 text-white text-xs sm:text-sm rounded hover:bg-yellow-500 transition">
-                                            <i class="fa-solid fa-pen-to-square"></i> <span class="hidden sm:inline">Edit</span>
-                                        </button>
+                                        <a href="{{ route('admin.announcement.edit', $announcement->id) }}"
+                                           class="px-2 sm:px-3 py-1.5 bg-yellow-400 text-white text-xs sm:text-sm rounded hover:bg-yellow-500 transition inline-flex items-center justify-center">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            <span class="hidden sm:inline ml-1">Edit</span>
+                                        </a>
                                         <button @click="openDeleteModal({{ $announcement->id }}, '{{ addslashes($announcement->headline) }}')"
                                             class="px-2 sm:px-3 py-1.5 bg-red-500 text-white text-xs sm:text-sm rounded hover:bg-red-600 transition">
                                             <i class="fa-solid fa-trash-can"></i> <span class="hidden sm:inline">Delete</span>

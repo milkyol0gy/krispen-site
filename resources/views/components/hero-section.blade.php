@@ -5,7 +5,7 @@
 
     @include('components.navbar')
 
-    <div class="absolute bottom-12 left-8 z-10">
+    <div class="absolute bottom-12 left-8">
         <h1 class="text-3xl font-bold text-white tracking-wide hero-title">{{ $title }}</h1>
     </div>
 </div>

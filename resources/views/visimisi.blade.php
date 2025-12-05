@@ -254,6 +254,15 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
+    @media (max-width: 768px) {
+      .nilai-kanan {
+        grid-template-columns: 1fr; /* jadi 1 kolom di mobile */
+      }
+    
+      .nilai {
+        padding: 1.5rem 1.25rem; /* optional: biar lebih lega di HP */
+      }
+    }
 
     .nilai-card {
       background-color: #a7dca5;
